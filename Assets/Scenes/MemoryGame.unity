@@ -257,7 +257,7 @@ Transform:
   m_GameObject: {fileID: 107976257}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0.5, z: -4}
+  m_LocalPosition: {x: -4, y: 0.716, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -446,9 +446,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Manager_Level
   prefab_MemoryBlock: {fileID: 84112898156602547, guid: 3e5415f495d01fd459d1dad74aae86cf, type: 3}
   block_position_origin: {fileID: 107976257}
-  block_offset: 1.5
-  blocks_row: 5
-  blocks_column: 5
+  block_row_offset: 3.4
+  blocks_row: 4
+  block_column_offset: 1.7
+  blocks_column: 6
 --- !u!1 &735580933
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,5 +698,5 @@ SceneRoots:
   - {fileID: 1889062709}
   - {fileID: 582056759}
   - {fileID: 1764876583}
-  - {fileID: 7562420}
   - {fileID: 107976258}
+  - {fileID: 7562420}
