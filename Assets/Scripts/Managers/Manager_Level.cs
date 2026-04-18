@@ -19,14 +19,17 @@ public class Manager_Level : MonoBehaviour
     private int[] block_values;
 
     // Level Control Variables
-
-    private int first_block_value;
-    private int second_block_value;
+    public int first_block_value = -1;
+    private Block_Behavior first_block;
+    public int second_block_value = -1;
+    private Block_Behavior second_block;
 
     // ==================== Functions ====================
 
     private void Start()
     {
+        Manager_Game.Instance.manager_level = this;
+
         GenerateLevel();
     }
 
@@ -75,7 +78,39 @@ public class Manager_Level : MonoBehaviour
         }
     }
 
-    public void BlockClicked() {
-        
+    public void BlockClicked(int value=-1, Block_Behavior block=null)
+    {
+        // Error Handling
+        if (block == null) return;
+
+        // Block clicked
+        if (first_block_value == -1)
+        {
+            first_block_value = value;
+            first_block = block;
+        }
+        else if (second_block_value == -1)
+        {
+            second_block_value = value;
+            second_block = block;
+            CheckMatch();
+        }
+    }
+
+    private void CheckMatch()
+    {
+        if (first_block_value == second_block_value)
+        {
+            first_block.Match();
+            second_block.Match();
+        }
+        else
+        {
+            first_block.UnMatch();
+            second_block.UnMatch();
+        }
+
+        first_block_value = -1;
+        second_block_value = -1;
     }
 }

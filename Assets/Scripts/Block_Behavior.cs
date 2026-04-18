@@ -10,12 +10,13 @@ public class Block_Behavior : MonoBehaviour
     [Header("References")]
     public Image img;
 
+
+    private bool clickable = true;
+
     private void Start()
     {
         //Canvas canvas = GetComponentInParent<Canvas>();
         //canvas.worldCamera = Camera.main;
-        
-        //img = GetComponentInParent<Image>();
     }
 
     /*
@@ -26,6 +27,25 @@ public class Block_Behavior : MonoBehaviour
 
     public void ClickBlock()
     {
-        Debug.Log("oi");
+        if (clickable)
+        {
+            Debug.Log("Clicked block with value: " + block_value);
+            img.color = Color.cyan;
+            clickable = false;
+
+            Manager_Game.Instance.manager_level.BlockClicked(block_value, this);
+        }
+    }
+
+    public void Match()
+    {
+        Debug.Log("Match!");
+    }
+
+    public void UnMatch()
+    {
+        Debug.Log("UnMatch!");
+        img.color = Color.white;
+        clickable = true;
     }
 }
