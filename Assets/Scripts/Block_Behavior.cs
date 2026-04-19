@@ -25,6 +25,8 @@ public class Block_Behavior : MonoBehaviour
         img.sprite = sprite;
     }*/
 
+    private void OnMouseUp() => ClickBlock();
+
     public void ClickBlock()
     {
         if (clickable)
