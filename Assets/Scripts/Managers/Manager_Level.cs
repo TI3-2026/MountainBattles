@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public class Manager_Level : MonoBehaviour
 {
+    public Alpinista alpinista;
     [Header("Prefabs")]
     [SerializeField] private GameObject prefab_MemoryBlock;
 
@@ -15,6 +16,7 @@ public class Manager_Level : MonoBehaviour
     private int blocks_row = 3;
     [SerializeField] private float block_column_offset = 4.4f;
     private int blocks_column = 6;
+    public int Erro = 0;
 
     private int duos_blocks;
     private int[] block_values;
@@ -108,11 +110,17 @@ public class Manager_Level : MonoBehaviour
         if (first_block_value == second_block_value)
         {
             Debug.Log("Match!");
+            alpinista.AcertouCarta();
             StartCoroutine(WaitForCardsReset(true));
         }
         else
         {
             Debug.Log("UnMatch!");
+            if(alpinista.alpinistavtr.y > alpinista.inicio.y)
+            {
+                Erro++;
+            }
+            alpinista.ErrouCarta(ref Erro);
             StartCoroutine(WaitForCardsReset(false));
         }
     }

@@ -717,10 +717,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb43d62607a2184283ded74145ef0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Manager_Level
+  alpinista: {fileID: 598732446}
   prefab_MemoryBlock: {fileID: 84112898156602547, guid: 3e5415f495d01fd459d1dad74aae86cf, type: 3}
   block_position_origin: {fileID: 107976257}
   block_row_offset: 3.5
   block_column_offset: 2.5
+  Erro: 0
+  onCardsEnabled:
+    m_PersistentCalls:
+      m_Calls: []
   first_block_value: -1
   second_block_value: -1
 --- !u!4 &762342082

@@ -3,9 +3,9 @@ using UnityEngine;
 public class Alpinista : MonoBehaviour
 {
     public GameObject alpinista;
-    Vector3 alpinistavtr;
-    Vector3 movimento = new Vector3(0, 6, 0);
-    Vector3 inicio = new Vector3(-4, -24, 100);
+    public Vector3 alpinistavtr;
+    public Vector3 movimento = new Vector3(0, 6, 0);
+    public Vector3 inicio = new Vector3(-4, -24, 100);
     public int Erro = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
