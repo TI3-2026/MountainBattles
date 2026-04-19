@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 
 public class Manager_Level : MonoBehaviour
@@ -10,9 +10,9 @@ public class Manager_Level : MonoBehaviour
     [SerializeField] private GameObject block_position_origin;
 
     // Generation Variables
-    private float block_row_offset = 3.4f;
+    [SerializeField] private float block_row_offset = 2.25f;
     private int blocks_row = 3;
-    private float block_column_offset = 1.7f;
+    [SerializeField] private float block_column_offset = 4.4f;
     private int blocks_column = 6;
 
     private int duos_blocks;
@@ -73,6 +73,7 @@ public class Manager_Level : MonoBehaviour
 
                 block.transform.localPosition = block_position;
                 block_behavior.block_value = block_values[block_index];
+                block_behavior.SetNumber(block_values[block_index]);
                 block_index++;
             }
         }
@@ -101,14 +102,24 @@ public class Manager_Level : MonoBehaviour
     {
         if (first_block_value == second_block_value)
         {
+            Debug.Log("Match!");
             first_block.Match();
             second_block.Match();
+            first_block_value = -1;
+            second_block_value = -1;
         }
         else
         {
-            first_block.UnMatch();
-            second_block.UnMatch();
+            Debug.Log("UnMatch!");
+            StartCoroutine(WaitForCardsReset());
         }
+    }
+
+    private IEnumerator WaitForCardsReset()
+    {
+        yield return new WaitForSeconds(1f);
+        first_block.UnMatch();
+        second_block.UnMatch();
 
         first_block_value = -1;
         second_block_value = -1;
