@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Manager_Level : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class Manager_Level : MonoBehaviour
     private int[] block_values;
 
     // Level Control Variables
+    public UnityEvent<bool> onCardsEnabled;
+
     public int first_block_value = -1;
     private Block_Behavior first_block;
     public int second_block_value = -1;
@@ -94,6 +97,8 @@ public class Manager_Level : MonoBehaviour
         {
             second_block_value = value;
             second_block = block;
+
+            onCardsEnabled.Invoke(false);
             CheckMatch();
         }
     }
@@ -103,23 +108,22 @@ public class Manager_Level : MonoBehaviour
         if (first_block_value == second_block_value)
         {
             Debug.Log("Match!");
-            first_block.Match();
-            second_block.Match();
-            first_block_value = -1;
-            second_block_value = -1;
+            StartCoroutine(WaitForCardsReset(true));
         }
         else
         {
             Debug.Log("UnMatch!");
-            StartCoroutine(WaitForCardsReset());
+            StartCoroutine(WaitForCardsReset(false));
         }
     }
 
-    private IEnumerator WaitForCardsReset()
+    private IEnumerator WaitForCardsReset(bool match)
     {
         yield return new WaitForSeconds(1f);
-        first_block.UnMatch();
-        second_block.UnMatch();
+        first_block.Match(match);
+        second_block.Match(match);
+
+        onCardsEnabled.Invoke(true);
 
         first_block_value = -1;
         second_block_value = -1;

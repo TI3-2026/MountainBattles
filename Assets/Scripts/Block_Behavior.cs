@@ -20,6 +20,8 @@ public class Block_Behavior : MonoBehaviour
     {
         canvas.worldCamera = Camera.main;
         number.enabled = false;
+
+        Manager_Game.Instance.manager_level.onCardsEnabled.AddListener(Clickabe);
     }
 
     /*
@@ -33,8 +35,12 @@ public class Block_Behavior : MonoBehaviour
         this.number.text = number.ToString();
     }
 
-    private void OnMouseUp() => ClickBlock();
+    private void Clickabe(bool clickable)
+    {
+        this.clickable = clickable;
+    }
 
+    private void OnMouseUp() => ClickBlock();
     public void ClickBlock()
     {
         if (clickable)
@@ -47,16 +53,17 @@ public class Block_Behavior : MonoBehaviour
         }
     }
 
-    public void Match()
+    public void Match(bool match)
     {
-        // Debug.Log("Match!");
-    }
-
-    public void UnMatch()
-    {
-        // Debug.Log("UnMatch!");
-        number.enabled = false;
-        img.color = Color.white;
-        clickable = true;
+        if (match)
+        {
+            img.color = Color.red;
+        }
+        else
+        {
+            number.enabled = false;
+            img.color = Color.white;
+            clickable = true;
+        }
     }
 }
