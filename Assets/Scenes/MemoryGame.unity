@@ -467,6 +467,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   alpinista: {fileID: 598732445}
+  alpinistavtr: {x: 0, y: 0, z: 0}
+  movimento: {x: 0, y: 6, z: 0}
+  inicio: {x: -4, y: -24, z: 100}
   Erro: 0
 --- !u!65 &598732447
 BoxCollider:
@@ -514,7 +517,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 11a3f139f33fae3408b9b237880def6d, type: 2}
+  - {fileID: 2100000, guid: dc0b97cdb387c2641bd9fa148feba9fe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -722,12 +725,13 @@ MonoBehaviour:
   block_position_origin: {fileID: 107976257}
   block_row_offset: 3.5
   block_column_offset: 2.5
-  Erro: 0
   onCardsEnabled:
     m_PersistentCalls:
       m_Calls: []
   first_block_value: -1
   second_block_value: -1
+  Erro: 0
+  DeuMatch: 0
 --- !u!4 &762342082
 Transform:
   m_ObjectHideFlags: 0
@@ -981,7 +985,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ea6648df9f1a0114091ea3fd7fc056a3, type: 2}
+  - {fileID: 2100000, guid: 73db542c210a3544b91a8ef6049dda77, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

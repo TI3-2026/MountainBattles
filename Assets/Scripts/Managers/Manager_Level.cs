@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Manager_Level : MonoBehaviour
 {
@@ -16,7 +17,6 @@ public class Manager_Level : MonoBehaviour
     private int blocks_row = 3;
     [SerializeField] private float block_column_offset = 4.4f;
     private int blocks_column = 6;
-    public int Erro = 0;
 
     private int duos_blocks;
     private int[] block_values;
@@ -28,6 +28,8 @@ public class Manager_Level : MonoBehaviour
     private Block_Behavior first_block;
     public int second_block_value = -1;
     private Block_Behavior second_block;
+    public int Erro = 0;
+    public int DeuMatch = 0;
 
     // ==================== Functions ====================
 
@@ -36,6 +38,19 @@ public class Manager_Level : MonoBehaviour
         Manager_Game.Instance.manager_level = this;
 
         GenerateLevel();
+    }
+    private void Update()
+    {
+        if(DeuMatch == 9 && alpinista.alpinistavtr.y > 20)
+        {
+            Debug.Log("Vitória!");
+            SceneManager.LoadScene("Menu");
+        }
+        else if(DeuMatch == 9 && alpinista.alpinistavtr.y < 20)
+        {
+            Debug.Log("Derrota!");
+            SceneManager.LoadScene("Menu");
+        }
     }
 
     private void GenerateLevel()
@@ -110,6 +125,8 @@ public class Manager_Level : MonoBehaviour
         if (first_block_value == second_block_value)
         {
             Debug.Log("Match!");
+            DeuMatch++;
+            Erro = 0;
             alpinista.AcertouCarta();
             StartCoroutine(WaitForCardsReset(true));
         }
