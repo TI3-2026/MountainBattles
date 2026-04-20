@@ -43,7 +43,7 @@ public class Manager_Level : MonoBehaviour
     {
         if(DeuMatch == 9 && alpinista.alpinistavtr.y > 20)
         {
-            Debug.Log("Vitória!");
+            Debug.Log("Vitï¿½ria!");
             SceneManager.LoadScene("Menu");
         }
         else if(DeuMatch == 9 && alpinista.alpinistavtr.y < 20)
