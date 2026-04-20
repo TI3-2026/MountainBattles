@@ -303,10 +303,10 @@ MonoBehaviour:
   timeLimit: 30
   avalancheSpeed: 2
   avalancheSizeZ: 5
-  wallMaterial: {fileID: 0}
-  floorMaterial: {fileID: 0}
-  goalMaterial: {fileID: 0}
-  avalancheMaterial: {fileID: 0}
+  wallMaterial: {fileID: 2100000, guid: 5a7d5dcd7c99e9d47960346821f59c08, type: 2}
+  floorMaterial: {fileID: 2100000, guid: 5a7d5dcd7c99e9d47960346821f59c08, type: 2}
+  goalMaterial: {fileID: 2100000, guid: 5f7b83c7cdb15934a8077d626dd4b4cf, type: 2}
+  avalancheMaterial: {fileID: 2100000, guid: 57bc5eee1dd215f4a9c1f03b1cf8f4dc, type: 2}
 --- !u!4 &483015514
 Transform:
   m_ObjectHideFlags: 0

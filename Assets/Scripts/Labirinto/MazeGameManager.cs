@@ -25,9 +25,10 @@ public class MazeGameManager : MonoBehaviour
 
     [Header("Avalanche (Perigo)")]
     public float avalancheSpeed = 2f;
-    public float avalancheSizeZ = 5f; // Espessura da "parede" de perigo
+    public float avalancheSizeZ = 5f;
 
-    [Header("Materiais/Cores")]
+    [Header("Materiais Obrigatórios")]
+    [Tooltip("Atribua materiais aqui para evitar que fiquem rosas na Build.")]
     public Material wallMaterial;
     public Material floorMaterial;
     public Material goalMaterial;
@@ -42,6 +43,22 @@ public class MazeGameManager : MonoBehaviour
 
     private Vector2Int startCell = new Vector2Int(1, 1);
     private Vector2Int goalCell;
+
+    // Material de backup gerado via código caso o usuário esqueça de preencher no Inspector
+    private Material _fallbackMaterial;
+    private Material GetFallbackMaterial()
+    {
+        if (_fallbackMaterial == null)
+        {
+            // Tenta pegar o shader padrão dependendo do Render Pipeline
+            Shader defaultShader = Shader.Find("Universal Render Pipeline/Lit");
+            if (defaultShader == null) defaultShader = Shader.Find("Standard");
+            
+            _fallbackMaterial = new Material(defaultShader);
+            _fallbackMaterial.color = Color.gray;
+        }
+        return _fallbackMaterial;
+    }
 
     private void Start()
     {
@@ -69,7 +86,6 @@ public class MazeGameManager : MonoBehaviour
         }
         else if (avalancheObject != null)
         {
-            // Move a avalanche para frente (eixo Z positivo)
             avalancheObject.transform.position += Vector3.forward * avalancheSpeed * Time.deltaTime;
         }
 
@@ -101,7 +117,7 @@ public class MazeGameManager : MonoBehaviour
         maze = new int[mazeWidth, mazeHeight];
         for (int x = 0; x < mazeWidth; x++)
             for (int y = 0; y < mazeHeight; y++)
-                maze[x, y] = 1; // 1 = Parede
+                maze[x, y] = 1;
     }
 
     private void CarveMaze()
@@ -159,7 +175,6 @@ public class MazeGameManager : MonoBehaviour
             {
                 if (maze[x, z] == 1)
                 {
-                    // REDUÇÃO DE ESCALA (0.99f): Evita que o player "tranque" nas emendas das paredes
                     Vector3 wallScale = new Vector3(cellSize * 0.99f, wallHeight, cellSize * 0.99f);
                     CreateCube($"Wall_{x}_{z}", x, wallHeight / 2f, z, wallScale, wallMaterial, true);
                 }
@@ -170,11 +185,11 @@ public class MazeGameManager : MonoBehaviour
             }
         }
 
-        // Objetivo com material Unlit (Brilhante) para não ter sombras
+        // Correção do Objetivo: Usa o goalMaterial do Inspector em vez de criar um shader via código
         GameObject goal = CreateCube("Goal", goalCell.x, 0.5f, goalCell.y, new Vector3(cellSize * 0.6f, 1f, cellSize * 0.6f), goalMaterial, false);
-        Renderer goalRender = goal.GetComponent<Renderer>();
-        goalRender.material = new Material(Shader.Find("Unlit/Color"));
-        goalRender.material.color = Color.green;
+        
+        // Se não tiver material definido para o goal, aplica uma cor verde no fallback
+        if (goalMaterial == null) goal.GetComponent<Renderer>().material.color = Color.green;
 
         Collider collider = goal.GetComponent<Collider>();
         collider.isTrigger = true;
@@ -190,10 +205,12 @@ public class MazeGameManager : MonoBehaviour
         cube.transform.position = CellToWorld(x, y, z);
         cube.transform.localScale = scale;
         
-        if (mat != null) cube.GetComponent<Renderer>().material = mat;
-        if (!solid) cube.GetComponent<Collider>().enabled = false; // Chão não precisa de colisor se o player tiver gravidade num plano grande
+        // CORREÇÃO: Garante que nunca use o material "Default" da Unity que pode falhar na build
+        Renderer rend = cube.GetComponent<Renderer>();
+        if (mat != null) rend.material = mat;
+        else rend.material = GetFallbackMaterial();
 
-        // Se for o chão, ativamos o colisor para o player não cair
+        if (!solid) cube.GetComponent<Collider>().enabled = false;
         if (name.Contains("Floor")) cube.GetComponent<Collider>().enabled = true;
 
         return cube;
@@ -206,20 +223,22 @@ public class MazeGameManager : MonoBehaviour
         avalancheObject.name = "Avalanche";
         
         float totalWidth = mazeWidth * cellSize;
-        
-        // ALTURA DA AVALANCHE: Definimos uma altura grande (ex: 5) para garantir que pegue o player
         float avalancheHeight = 5f; 
         avalancheObject.transform.localScale = new Vector3(totalWidth, avalancheHeight, avalancheSizeZ);
         
         float centerX = mazeOffset.x + (mazeWidth * cellSize / 2f) - (cellSize / 2f);
         float startZ = mazeOffset.z - (avalancheSizeZ / 2f) - cellSize;
         
-        // POSIÇÃO Y: Colocamos a base da avalanche no nível do chão
         avalancheObject.transform.position = new Vector3(centerX, avalancheHeight / 2f - 0.1f, startZ);
         
-        if (avalancheMaterial != null) avalancheObject.GetComponent<Renderer>().material = avalancheMaterial;
+        Renderer rend = avalancheObject.GetComponent<Renderer>();
+        if (avalancheMaterial != null) rend.material = avalancheMaterial;
+        else
+        {
+            rend.material = GetFallbackMaterial();
+            rend.material.color = Color.red;
+        }
         
-        // Configura o Trigger
         Collider col = avalancheObject.GetComponent<Collider>();
         col.isTrigger = true;
         avalancheObject.AddComponent<MazeAvalancheTrigger>().manager = this;
@@ -228,11 +247,11 @@ public class MazeGameManager : MonoBehaviour
     private void ResetPlayerPosition()
     {
         if (player == null) return;
-        player.position = CellToWorld(startCell.x, 0.5f, startCell.y); // 0.5f para ficar sobre o chão
+        player.position = CellToWorld(startCell.x, 0.5f, startCell.y);
 
         if (player.TryGetComponent<Rigidbody>(out Rigidbody rb))
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero; // Corrigido de linearVelocity para velocity (compatibilidade)
             rb.angularVelocity = Vector3.zero;
         }
     }
@@ -251,7 +270,6 @@ public class MazeGameManager : MonoBehaviour
 
     private int MakeOdd(int value) => value % 2 == 0 ? value + 1 : value;
 
-    // Métodos chamados pelos Triggers
     public void PlayerFailed() { if (!resetting) { resetting = true; GenerateNewMaze(); } }
     public void PlayerWon() { if (!resetting) { resetting = true; GenerateNewMaze(); } }
 }
