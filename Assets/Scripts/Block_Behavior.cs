@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,7 +20,9 @@ public class Block_Behavior : MonoBehaviour
     private void Start()
     {
         canvas.worldCamera = Camera.main;
-        number.enabled = false;
+        //number.enabled = false;
+        number.enabled = true;
+        clickable = false; 
 
         Manager_Game.Instance.manager_level.onCardsEnabled.AddListener(Clickabe);
     }
@@ -45,8 +48,10 @@ public class Block_Behavior : MonoBehaviour
     {
         if (clickable)
         {
-            img.color = Color.cyan;
+            /*img.color = Color.cyan;
             number.enabled = true;
+            clickable = false;*/
+            Flip(true);
             clickable = false;
 
             Manager_Game.Instance.manager_level.BlockClicked(block_value, this);
@@ -57,13 +62,36 @@ public class Block_Behavior : MonoBehaviour
     {
         if (match)
         {
-            img.color = Color.red;
+            img.color = Color.green;
         }
         else
         {
-            number.enabled = false;
+            /*number.enabled = false;
             img.color = Color.white;
-            clickable = true;
+            clickable = true;*/
+            StartCoroutine(ErroMatch());
         }
+    }
+
+    public void Flip(bool showFront)
+    {
+        LeanTween.rotateZ(gameObject, 90f, 0.15f).setOnComplete(() =>
+        {
+            number.enabled = showFront;
+            LeanTween.rotateZ(gameObject, 180f, 0.15f).setOnComplete(() =>
+            {
+                transform.rotation = Quaternion.identity;
+            });
+        });
+    }
+
+    IEnumerator ErroMatch()
+    {
+        clickable = false;
+        img.color = Color.red;
+        yield return new WaitForSeconds(1f);
+        img.color = Color.white;
+        Flip(false);
+        clickable = true;
     }
 }

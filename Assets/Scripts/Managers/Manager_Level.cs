@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -6,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class Manager_Level : MonoBehaviour
 {
     public Alpinista alpinista;
+    public GameObject canvas;
+    public TextMeshProUGUI finaljogo;
     [Header("Prefabs")]
     [SerializeField] private GameObject prefab_MemoryBlock;
 
@@ -36,21 +39,13 @@ public class Manager_Level : MonoBehaviour
     private void Start()
     {
         Manager_Game.Instance.manager_level = this;
+        canvas.SetActive(false);
 
         GenerateLevel();
     }
     private void Update()
     {
-        if(DeuMatch == 9 && alpinista.alpinistavtr.y > 20)
-        {
-            Debug.Log("Vit�ria!");
-            SceneManager.LoadScene("Menu");
-        }
-        else if(DeuMatch == 9 && alpinista.alpinistavtr.y < 20)
-        {
-            Debug.Log("Derrota!");
-            SceneManager.LoadScene("Menu");
-        }
+        
     }
 
     private void GenerateLevel()
@@ -97,6 +92,7 @@ public class Manager_Level : MonoBehaviour
                 block_index++;
             }
         }
+        StartCoroutine(ShowAllThenHide());
     }
 
     public void BlockClicked(int value=-1, Block_Behavior block=null)
@@ -129,6 +125,10 @@ public class Manager_Level : MonoBehaviour
             Erro = 0;
             alpinista.AcertouCarta();
             StartCoroutine(WaitForCardsReset(true));
+            if(DeuMatch == 9)
+            {
+                StartCoroutine(AcabarJogo());
+            }
         }
         else
         {
@@ -148,9 +148,43 @@ public class Manager_Level : MonoBehaviour
         first_block.Match(match);
         second_block.Match(match);
 
+        yield return new WaitForSeconds(1.2f);
         onCardsEnabled.Invoke(true);
 
         first_block_value = -1;
         second_block_value = -1;
+    }
+
+    private IEnumerator ShowAllThenHide()
+    {
+        onCardsEnabled.Invoke(false);
+        yield return new WaitForSeconds(5f);
+        Block_Behavior[] blocks = FindObjectsOfType<Block_Behavior>();
+        foreach (var block in blocks)
+        {
+            block.Flip(false);
+        }
+        yield return new WaitForSeconds(0.3f); 
+        onCardsEnabled.Invoke(true);
+    }
+
+    private IEnumerator AcabarJogo()
+    {
+        yield return new WaitForSeconds(1f);
+        canvas.SetActive(true);
+        if (DeuMatch == 9 && alpinista.alpinistavtr.y > 20)
+        {
+            finaljogo.SetText("Vitória!");
+            finaljogo.color = Color.green;
+            yield return new WaitForSeconds(4f);
+            SceneManager.LoadScene("Menu");
+        }
+        else if (DeuMatch == 9 && alpinista.alpinistavtr.y < 20)
+        {
+            finaljogo.SetText("Derrota!");
+            finaljogo.color = Color.red;
+            yield return new WaitForSeconds(4f);
+            SceneManager.LoadScene("Menu");
+        }
     }
 }
