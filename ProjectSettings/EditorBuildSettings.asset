@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 3e99e1af94bbc564ba714ffa01890620
   - enabled: 1
-    path: Assets/Scenes/MemoryGame.unity
+    path: Assets/Scenes/Memoria.unity
     guid: aca000fb084554344bc48580f6367ca0
   - enabled: 1
     path: Assets/Scenes/Labirinto.unity
