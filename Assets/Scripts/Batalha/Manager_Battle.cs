@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,6 +20,7 @@ public class Manager_Battle : MonoBehaviour
     [Header("Level Control")]
     public float positionToWin = 6f;
     public float finalMovement = 0f;
+    public float Tempo = 0f;
 
     [Header("Player Variables")]
     public float playerStrength = 0;
@@ -34,11 +36,17 @@ public class Manager_Battle : MonoBehaviour
 
     private void Update() {
         CalculatePlayerStrength();
-        CalculateEnemyStrength();        
+        CalculateEnemyStrength();
     }
 
     private void FixedUpdate() {
         ApplyStrengths();
+        Tempo += Time.deltaTime;
+        if(Tempo >= 0.05f)
+        {
+            hud.UpdateSlider(playerStrength - enemyStrength);
+            Tempo = 0f;
+        }
     }
 
     private void CalculatePlayerStrength() {
@@ -60,7 +68,7 @@ public class Manager_Battle : MonoBehaviour
 
     private void ApplyStrengths() {
         finalMovement = playerStrength - enemyStrength;
-        hud.UpdateSlider(player.transform.position.x);
+        //hud.UpdateSlider(playerStrength - enemyStrength);
 
         player.Velocity(finalMovement);
         enemy.Velocity(finalMovement);
