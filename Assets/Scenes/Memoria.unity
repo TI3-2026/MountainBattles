@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &7562417
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -256,13 +256,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107976257}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0.716, z: -4}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -8, y: -2, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1001 &259234283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -424,13 +424,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434005495}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17278863, y: 0, z: 0, w: 0.9849589}
-  m_LocalPosition: {x: 0, y: 6.88, z: -11.73}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 19.9, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &434005499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,6 +799,25 @@ MonoBehaviour:
   block_position_origin: {fileID: 107976257}
   block_row_offset: 3.5
   block_column_offset: 2.5
+  InfoMontanhas:
+  - "VINSON \u2013 \xC9 a montanha mais fria entre os Sete Cumes."
+  - "DENALI \u2013 O Denali \xE9 geologicamente descrito como um enorme bloco de
+    granito."
+  - "ACONC\xC1GUA \u2013 O Aconc\xE1gua faz parte da Cordilheira dos Andes."
+  - "EVEREST \u2013 O Everest cresce cerca de 4 mil\xEDmetros por ano."
+  - "ELBRUS \u2013 O Elbrus \xE9 um vulc\xE3o adormecido."
+  - "KILIMANJARO \u2013 Por conta de sua neve, \u201CKilimanjaro\u201D significa
+    \u201CMontanha Branca\u201D."
+  - "PIR\xC2MIDE DE CARSTENSZ \u2013 Sua escalada exige t\xE9cnicas de rapel e escalada
+    em rocha."
+  Montanhas:
+  - {fileID: 21300000, guid: a36517aef2aa8704b90ef69a30f6b75d, type: 3}
+  - {fileID: 21300000, guid: 23d0a163b07998943bbb4f4fa87bec10, type: 3}
+  - {fileID: 21300000, guid: c7dd5ba6245a9714caa97a28d490cf20, type: 3}
+  - {fileID: 21300000, guid: 6189e3725aca87e4db77b2edf9f4eff7, type: 3}
+  - {fileID: 21300000, guid: 87bb1d5a81f778e4dacc9a6f6f45913a, type: 3}
+  - {fileID: 21300000, guid: 94b2cd6ce7f38f1499d6ed75407bb17b, type: 3}
+  - {fileID: 21300000, guid: 7337396c9aa11364784bcd9b3bdde94f, type: 3}
   onCardsEnabled:
     m_PersistentCalls:
       m_Calls: []

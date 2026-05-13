@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Manager_Level : MonoBehaviour
 {
@@ -17,12 +19,20 @@ public class Manager_Level : MonoBehaviour
 
     // Generation Variables
     [SerializeField] private float block_row_offset = 2.25f;
-    private int blocks_row = 3;
+    private int blocks_row = 2;
     [SerializeField] private float block_column_offset = 4.4f;
-    private int blocks_column = 6;
+    private int blocks_column = 7;
 
     private int duos_blocks;
     private int[] block_values;
+    public string[] InfoMontanhas = { "VINSON – É a montanha mais fria entre os Sete Cumes.",
+    "DENALI – O Denali é geologicamente descrito como um enorme bloco de granito.",
+    "ACONCÁGUA – O Aconcágua faz parte da Cordilheira dos Andes.",
+    "EVEREST – O Everest cresce cerca de 4 milímetros por ano.",
+    "ELBRUS – O Elbrus é um vulcão adormecido.",
+    "KILIMANJARO – Por conta de sua neve, “Kilimanjaro” significa “Montanha Branca”.",
+    "PIRÂMIDE DE CARSTENSZ – Sua escalada exige técnicas de rapel e escalada em rocha."};
+    public Sprite[] Montanhas = new Sprite[7];
 
     // Level Control Variables
     public UnityEvent<bool> onCardsEnabled;
@@ -87,8 +97,9 @@ public class Manager_Level : MonoBehaviour
                 Block_Behavior block_behavior = block.GetComponent<Block_Behavior>();
 
                 block.transform.localPosition = block_position;
-                block_behavior.block_value = block_values[block_index];
-                block_behavior.SetNumber(block_values[block_index]);
+                int value = block_values[block_index];
+                block_behavior.block_value = value;
+                block_behavior.SetCard(Montanhas[value], InfoMontanhas[value]);
                 block_index++;
             }
         }
@@ -125,7 +136,7 @@ public class Manager_Level : MonoBehaviour
             Erro = 0;
             alpinista.AcertouCarta();
             StartCoroutine(WaitForCardsReset(true));
-            if(DeuMatch == 9)
+            if(DeuMatch == 7)
             {
                 StartCoroutine(AcabarJogo());
             }
@@ -172,14 +183,14 @@ public class Manager_Level : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         canvas.SetActive(true);
-        if (DeuMatch == 9 && alpinista.alpinistavtr.y > 20)
+        if (DeuMatch == 7 && alpinista.alpinistavtr.y > 20)
         {
             finaljogo.SetText("Vitória!");
             finaljogo.color = Color.green;
             yield return new WaitForSeconds(4f);
             SceneManager.LoadScene("Menu");
         }
-        else if (DeuMatch == 9 && alpinista.alpinistavtr.y < 20)
+        else if (DeuMatch == 7 && alpinista.alpinistavtr.y < 20)
         {
             finaljogo.SetText("Derrota!");
             finaljogo.color = Color.red;

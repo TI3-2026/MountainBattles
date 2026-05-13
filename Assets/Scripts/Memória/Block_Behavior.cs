@@ -12,16 +12,20 @@ public class Block_Behavior : MonoBehaviour
     [Header("References")]
     public Canvas canvas;
     public Image img;
-    public TextMeshProUGUI number;
+    public TextMeshProUGUI infoMontanha;
+    public Image ImgMontanha;
 
 
     private bool clickable = true;
+    private Quaternion originalRotation;
 
     private void Start()
     {
+        originalRotation = transform.rotation;
         canvas.worldCamera = Camera.main;
         //number.enabled = false;
-        number.enabled = true;
+        infoMontanha.enabled = true;
+        ImgMontanha.enabled = true;
         clickable = false; 
 
         Manager_Game.Instance.manager_level.onCardsEnabled.AddListener(Clickabe);
@@ -33,9 +37,10 @@ public class Block_Behavior : MonoBehaviour
         img.sprite = sprite;
     }*/
 
-    public void SetNumber(int number)
+    public void SetCard(Sprite sprite, string texto)
     {
-        this.number.text = number.ToString();
+        ImgMontanha.sprite = sprite;
+        infoMontanha.text = texto;
     }
 
     private void Clickabe(bool clickable)
@@ -62,7 +67,7 @@ public class Block_Behavior : MonoBehaviour
     {
         if (match)
         {
-            img.color = Color.green;
+            img.color = new Color(0f, 1f, 0f, 0.2f);
         }
         else
         {
@@ -75,12 +80,18 @@ public class Block_Behavior : MonoBehaviour
 
     public void Flip(bool showFront)
     {
-        LeanTween.rotateZ(gameObject, 90f, 0.15f).setOnComplete(() =>
+        LeanTween.cancel(gameObject);
+
+        transform.localRotation = Quaternion.identity;
+
+        LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 90), 0.15f).setOnComplete(() =>
         {
-            number.enabled = showFront;
-            LeanTween.rotateZ(gameObject, 180f, 0.15f).setOnComplete(() =>
+            infoMontanha.enabled = showFront;
+            ImgMontanha.enabled = showFront;
+
+            LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 180), 0.15f).setOnComplete(() =>
             {
-                transform.rotation = Quaternion.identity;
+                transform.localRotation = Quaternion.identity;
             });
         });
     }
@@ -88,9 +99,9 @@ public class Block_Behavior : MonoBehaviour
     IEnumerator ErroMatch()
     {
         clickable = false;
-        img.color = Color.red;
+        img.color = new Color(1f, 0f, 0f, 0.4f);
         yield return new WaitForSeconds(1f);
-        img.color = Color.white;
+        img.color = new Color(0f, 0f, 0f, 0f);
         Flip(false);
         clickable = true;
     }
