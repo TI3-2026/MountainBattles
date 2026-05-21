@@ -10,6 +10,8 @@ public class cameraSwitch : MonoBehaviour
     {
         menuCamera.gameObject.SetActive(true);
         playerCamera.gameObject.SetActive(false);
+
+        menuCanvas.SetActive(true);
     }
 
     public void StartGame()
