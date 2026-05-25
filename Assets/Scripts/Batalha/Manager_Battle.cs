@@ -51,8 +51,17 @@ public class Manager_Battle : MonoBehaviour
 
     private void CalculatePlayerStrength() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            playerStrength += playerStrengthBurst;
-            if (playerStrength > playerStrengthMax) playerStrength = playerStrengthMax;
+            if (hud.CheckSkillCheck())
+            {
+                // Acertou Skill Check
+                playerStrength += playerStrengthBurst;
+                if (playerStrength > playerStrengthMax) playerStrength = playerStrengthMax;
+            }
+            else
+            {
+                // Penalidade (Errar SkillCheck)
+                playerStrength -= playerStrengthBurst / 2;
+            }
         }
 
         playerStrength -= playerStrengthLoose * Time.deltaTime;
