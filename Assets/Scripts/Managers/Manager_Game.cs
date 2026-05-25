@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Manager_Game : MonoBehaviour
@@ -14,8 +15,7 @@ public class Manager_Game : MonoBehaviour
             Instance = this; 
         } 
     }
-
-
+    
     [Header("References")]
     public Manager_Level manager_level;
 }

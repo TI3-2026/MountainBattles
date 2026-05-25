@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class openCanvas : MonoBehaviour
 {
@@ -17,17 +18,20 @@ public class openCanvas : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            canvasL.SetActive(!canvasL.activeSelf);
+            SceneManager.LoadScene("Labirinto");
+            //canvasL.SetActive(!canvasL.activeSelf);
         }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            canvasM.SetActive(!canvasM.activeSelf);
+            SceneManager.LoadScene("Memoria");
+            //canvasM.SetActive(!canvasM.activeSelf);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            canvasB.SetActive(!canvasB.activeSelf);
+            SceneManager.LoadScene("Batalha");
+            //canvasB.SetActive(!canvasB.activeSelf);
         }
     }
 }
