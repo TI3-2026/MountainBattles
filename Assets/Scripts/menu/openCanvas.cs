@@ -18,20 +18,17 @@ public class openCanvas : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            SceneManager.LoadScene("Labirinto");
-            //canvasL.SetActive(!canvasL.activeSelf);
+            canvasL.SetActive(!canvasL.activeSelf);
         }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            SceneManager.LoadScene("Memoria");
-            //canvasM.SetActive(!canvasM.activeSelf);
+            canvasM.SetActive(!canvasM.activeSelf);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SceneManager.LoadScene("Batalha");
-            //canvasB.SetActive(!canvasB.activeSelf);
+            canvasB.SetActive(!canvasB.activeSelf);
         }
     }
 }
