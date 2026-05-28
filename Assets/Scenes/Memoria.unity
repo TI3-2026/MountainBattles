@@ -541,7 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   alpinista: {fileID: 598732445}
   alpinistavtr: {x: 0, y: 0, z: 0}
-  movimento: {x: 0, y: 6, z: 0}
+  movimento: {x: 0, y: 12, z: 0}
   inicio: {x: -4, y: -24, z: 100}
 --- !u!65 &598732447
 BoxCollider:

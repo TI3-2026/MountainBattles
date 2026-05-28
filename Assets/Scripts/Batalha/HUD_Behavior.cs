@@ -9,7 +9,6 @@ public class HUD_Behavior : MonoBehaviour
     [Header("Skill Check")]
     public Slider skillCheck;
     public float skillCheckSpeed = 1f;
-    public float skillCheckGain = 2f;
     public float skillCheckMax = 0.65f;
     public float skillCheckMin = 0.35f;
 

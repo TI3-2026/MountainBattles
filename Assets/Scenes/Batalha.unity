@@ -1994,17 +1994,17 @@ MonoBehaviour:
   hud: {fileID: 91280743}
   enemy: {fileID: 27358665}
   player: {fileID: 92934412}
-  positionToWin: 5.5
+  positionToWin: 5.6
   finalMovement: 0
   Tempo: 0
   playerStrength: 0
-  playerStrengthBurst: 3
-  playerStrengthLoose: 1.65
+  playerStrengthBurst: 1.5
+  playerStrengthLoose: 1.2
   playerStrengthMax: 4
   playerStrengthMin: 0
   enemyStrength: 0
-  enemyStrengthBase: 1.5
-  enemyStrengthVariation: 0
+  enemyStrengthBase: 2.5
+  enemyStrengthVariation: 0.5
 --- !u!1 &1727876129
 GameObject:
   m_ObjectHideFlags: 0

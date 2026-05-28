@@ -5,7 +5,7 @@ public class Alpinista : MonoBehaviour
 {
     public GameObject alpinista;
     public Vector3 alpinistavtr;
-    public Vector3 movimento = new Vector3(0, 8, 0);
+    public Vector3 movimento = new Vector3(0, 12, 0);
     public Vector3 inicio = new Vector3(-4, -24, 100);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
