@@ -1,12 +1,11 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Block_Behavior : MonoBehaviour
+public class CartoesScript : MonoBehaviour
 {
-    [Header("Dont Touch")]
+    [Header("Auto Preenchivel")]
     public int block_value;
 
     [Header("References")]
@@ -30,13 +29,6 @@ public class Block_Behavior : MonoBehaviour
 
         Manager_Level.Instance.onCardsEnabled.AddListener(Clickabe);
     }
-
-    /*
-    public void ChangeImage(Sprite sprite)
-    {
-        img.sprite = sprite;
-    }*/
-
     public void SetCard(Sprite sprite, string texto)
     {
         ImgMontanha.sprite = sprite;

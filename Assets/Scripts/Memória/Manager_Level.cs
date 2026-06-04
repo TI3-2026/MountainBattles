@@ -20,7 +20,10 @@ public class Manager_Level : MonoBehaviour
     public Alpinista alpinista;
     public GameObject canvas;
     public TextMeshProUGUI finaljogo;
-    public List<Block_Behavior> blocks;
+
+    [Header("Auto Preenchivel")]
+    public List<CartoesScript> blocks;
+    public CameraScript camScript;
     
     [Header("Prefabs")]
     public GameObject prefab_MemoryBlock;
@@ -49,9 +52,9 @@ public class Manager_Level : MonoBehaviour
     public UnityEvent<bool> onCardsEnabled;
 
     public int first_block_value = -1;
-    private Block_Behavior first_block;
+    private CartoesScript first_block;
     public int second_block_value = -1;
-    private Block_Behavior second_block;
+    private CartoesScript second_block;
     public int Erro = 0;
     public int DeuMatch = 0;
 
@@ -62,10 +65,6 @@ public class Manager_Level : MonoBehaviour
         canvas.SetActive(false);
 
         GenerateLevel();
-    }
-    private void Update()
-    {
-        
     }
 
     private void GenerateLevel()
@@ -95,7 +94,7 @@ public class Manager_Level : MonoBehaviour
                 Vector3 block_position = new Vector3(i * block_column_offset, 0, j * block_row_offset);
 
                 GameObject block = Instantiate(prefab_MemoryBlock, block_position_origin.transform);
-                Block_Behavior block_behavior = block.GetComponent<Block_Behavior>();
+                CartoesScript block_behavior = block.GetComponent<CartoesScript>();
 
                 block.transform.localPosition = block_position;
                 int value = block_values[block_index];
@@ -108,7 +107,7 @@ public class Manager_Level : MonoBehaviour
         StartCoroutine(ShowAllThenHide());
     }
 
-    public void BlockClicked(int value=-1, Block_Behavior block=null)
+    public void BlockClicked(int value=-1, CartoesScript block=null)
     {
         // Error Handling
         if (block == null) return;
@@ -133,7 +132,8 @@ public class Manager_Level : MonoBehaviour
     {
         if (first_block_value == second_block_value)
         {
-            Debug.Log("Match!");
+            //Debug.Log("Match!");
+
             DeuMatch++;
             Erro = 0;
             alpinista.AcertouCarta();

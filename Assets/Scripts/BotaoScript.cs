@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ButtonController : MonoBehaviour
+public class BotaoScript : MonoBehaviour
 {
     public void TogglePanel(GameObject panel)
     {
@@ -19,8 +19,7 @@ public class ButtonController : MonoBehaviour
         Application.Quit();
         Debug.Log("Fechando o jogo...");
     }
-
-    // NOVA FUNÇÃO (só isso aqui)
+    
     public void OpenScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);

@@ -3,24 +3,35 @@ using UnityEngine;
 
 public class Alpinista : MonoBehaviour
 {
-    public GameObject alpinista;
+    [Header("References")]
+
+    public Transform pos_inicio;
+    public Transform pos_final;
+
+    [Header("Variables")]
+    public int total_movimentos = 10;
+    public int movimentos = 0;
+
     public Vector3 alpinistavtr;
     public Vector3 movimento = new Vector3(0, 12, 0);
     public Vector3 inicio = new Vector3(-4, -24, 100);
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    private void Start()
     {
         alpinistavtr = inicio;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void AcertouCarta()
     {
+        movimentos++;
+
+        Vector3 movement = (pos_final.position - pos_inicio.position)/total_movimentos;
+        movement *= movimentos;
+        
+        Vector3 destino = pos_inicio.position + movement;
+        LeanTween.move(gameObject, destino, 1f).setEase(LeanTweenType.easeOutCirc);
+
+        /*
         if(transform.position.y < 20)
         {
             LeanTween.move(gameObject, alpinistavtr + movimento, 0.5f).setOnComplete(() =>
@@ -28,7 +39,9 @@ public class Alpinista : MonoBehaviour
                 alpinistavtr = transform.position;
             });
         }
+        */
     }
+
     public void ErrouCarta(ref int erro)
     {
         if(transform.position.y > inicio.y && erro == 1)
