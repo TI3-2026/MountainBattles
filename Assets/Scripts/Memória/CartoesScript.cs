@@ -40,7 +40,7 @@ public class CartoesScript : MonoBehaviour
         this.clickable = clickable;
     }
 
-    private void OnMouseUp() => ClickBlock();
+    //private void OnMouseUp() => ClickBlock();
     public void ClickBlock()
     {
         if (clickable)

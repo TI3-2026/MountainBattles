@@ -22,14 +22,14 @@ public class Manager_Level : MonoBehaviour
     public TextMeshProUGUI finaljogo;
 
     [Header("Auto Preenchivel")]
-    public List<CartoesScript> blocks;
+    public List<CartoesScript> cartoes_list;
     public CameraScript camScript;
     
     [Header("Prefabs")]
     public GameObject prefab_MemoryBlock;
 
     [Header("Settings")]
-    public GameObject block_position_origin;
+    public Transform cartoes_pivot;
 
     // Generation Variables
     public float block_row_offset = 2.25f;
@@ -93,7 +93,7 @@ public class Manager_Level : MonoBehaviour
             {
                 Vector3 block_position = new Vector3(i * block_column_offset, 0, j * block_row_offset);
 
-                GameObject block = Instantiate(prefab_MemoryBlock, block_position_origin.transform);
+                GameObject block = Instantiate(prefab_MemoryBlock, cartoes_pivot);
                 CartoesScript block_behavior = block.GetComponent<CartoesScript>();
 
                 block.transform.localPosition = block_position;
@@ -101,7 +101,7 @@ public class Manager_Level : MonoBehaviour
                 block_behavior.block_value = value;
                 block_behavior.SetCard(Montanhas[value], InfoMontanhas[value]);
                 block_index++;
-                blocks.Add(block_behavior);
+                cartoes_list.Add(block_behavior);
             }
         }
         StartCoroutine(ShowAllThenHide());
@@ -130,37 +130,50 @@ public class Manager_Level : MonoBehaviour
 
     private void CheckMatch()
     {
+        //Match
         if (first_block_value == second_block_value)
         {
-            //Debug.Log("Match!");
-
             DeuMatch++;
             Erro = 0;
-            alpinista.AcertouCarta();
-            StartCoroutine(WaitForCardsReset(true));
+            StartCoroutine(I_CartoesAnimacao(match: true));
             if(DeuMatch == 7)
             {
                 StartCoroutine(AcabarJogo());
             }
         }
-        else
+        else //UnMatch
         {
-            Debug.Log("UnMatch!");
-            if(alpinista.alpinistavtr.y > alpinista.inicio.y)
-            {
-                Erro++;
-            }
+            if(alpinista.alpinistavtr.y > alpinista.inicio.y) Erro++;
+
             alpinista.ErrouCarta(ref Erro);
-            StartCoroutine(WaitForCardsReset(false));
+            StartCoroutine(I_CartoesAnimacao(match: false));
         }
     }
 
-    private IEnumerator WaitForCardsReset(bool match)
+    private IEnumerator I_CartoesAnimacao(bool match)
     {
         yield return new WaitForSeconds(1f);
         first_block.Match(match);
         second_block.Match(match);
 
+        if (match) {
+            Vector3 pivot_position = cartoes_pivot.localPosition;
+
+            yield return new WaitForSeconds(0.5f);
+
+            cartoes_pivot.localPosition = new Vector3(100, 100, 100); // Sumir com o objeto da tela
+            yield return new WaitForSeconds(0.25f);
+            camScript.MostrarPlayer();
+            yield return new WaitForSeconds(camScript.animacao_duracao+0.25f);
+
+            alpinista.AcertouCarta();
+            yield return new WaitForSeconds(alpinista.movimento_duracao+0.25f);
+
+            camScript.MostrarMontanha();
+            yield return new WaitForSeconds(camScript.animacao_duracao+0.25f);
+            cartoes_pivot.localPosition = pivot_position;
+        }
+        
         yield return new WaitForSeconds(1.2f);
         onCardsEnabled.Invoke(true);
 
@@ -172,9 +185,9 @@ public class Manager_Level : MonoBehaviour
     {
         onCardsEnabled.Invoke(false);
         yield return new WaitForSeconds(5f);
-        foreach (var block in blocks)
+        foreach (var cartao in cartoes_list)
         {
-            block.Flip(false);
+            cartao.Flip(false);
         }
         yield return new WaitForSeconds(0.3f); 
         onCardsEnabled.Invoke(true);

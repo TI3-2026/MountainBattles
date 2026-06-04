@@ -13,16 +13,18 @@ public class CameraScript : MonoBehaviour
     private void Start() {
         Manager_Level.Instance.camScript = this;
         
-        MostrarPlayer();
+        gameObject.transform.position = pos_montanha.position;
     }
 
     // Mostrar toda a cena para mostrar toda a montanha
     public void MostrarMontanha() {
-        LeanTween.move(gameObject, pos_montanha.position, animacao_duracao).setEase(LeanTweenType.easeOutCirc);
+        LeanTween.move(gameObject, pos_montanha.position, animacao_duracao)
+        .setEase(LeanTweenType.easeInOutSine);
     }
 
     // Mostrar o player novamente (posicao padrao)
     public void MostrarPlayer() {
-        LeanTween.move(gameObject, pos_player.position, animacao_duracao).setEase(LeanTweenType.easeOutCirc);
+        LeanTween.move(gameObject, pos_player.position, animacao_duracao)
+        .setEase(LeanTweenType.easeInOutSine);
     }
 }

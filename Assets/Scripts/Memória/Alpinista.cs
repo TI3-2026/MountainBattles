@@ -11,6 +11,7 @@ public class Alpinista : MonoBehaviour
     [Header("Variables")]
     public int total_movimentos = 10;
     public int movimentos = 0;
+    public float movimento_duracao = 1f;
 
     public Vector3 alpinistavtr;
     public Vector3 movimento = new Vector3(0, 12, 0);
@@ -29,19 +30,10 @@ public class Alpinista : MonoBehaviour
         movement *= movimentos;
         
         Vector3 destino = pos_inicio.position + movement;
-        LeanTween.move(gameObject, destino, 1f).setEase(LeanTweenType.easeOutCirc);
-
-        /*
-        if(transform.position.y < 20)
-        {
-            LeanTween.move(gameObject, alpinistavtr + movimento, 0.5f).setOnComplete(() =>
-            {
-                alpinistavtr = transform.position;
-            });
-        }
-        */
+        LeanTween.move(gameObject, destino, movimento_duracao).setEase(LeanTweenType.easeInOutSine);
     }
 
+    // ! Refazer
     public void ErrouCarta(ref int erro)
     {
         if(transform.position.y > inicio.y && erro == 1)
