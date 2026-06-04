@@ -1,26 +1,37 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
+
 
 public class Manager_Level : MonoBehaviour
 {
+    //Singleton
+    public static Manager_Level Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
+
+    [Header("References")]
     public Alpinista alpinista;
     public GameObject canvas;
     public TextMeshProUGUI finaljogo;
+    public List<Block_Behavior> blocks;
+    
     [Header("Prefabs")]
-    [SerializeField] private GameObject prefab_MemoryBlock;
+    public GameObject prefab_MemoryBlock;
 
     [Header("Settings")]
-    [SerializeField] private GameObject block_position_origin;
+    public GameObject block_position_origin;
 
     // Generation Variables
-    [SerializeField] private float block_row_offset = 2.25f;
+    public float block_row_offset = 2.25f;
     private int blocks_row = 2;
-    [SerializeField] private float block_column_offset = 4.4f;
+    public float block_column_offset = 4.4f;
     private int blocks_column = 7;
 
     private int duos_blocks;
@@ -48,7 +59,6 @@ public class Manager_Level : MonoBehaviour
 
     private void Start()
     {
-        Manager_Game.Instance.manager_level = this;
         canvas.SetActive(false);
 
         GenerateLevel();
@@ -75,15 +85,6 @@ public class Manager_Level : MonoBehaviour
             block_values[i] = block_values[random_index];
             block_values[random_index] = temp;
         }
-
-        /* For Debugging:
-
-        string text = "";   
-        for (int i = 0; i < block_values.Length; i++){
-            text += block_values[i] + " ";
-        }
-        Debug.Log(text);
-        */
         
         // Create blocks
         int block_index = 0;
@@ -101,6 +102,7 @@ public class Manager_Level : MonoBehaviour
                 block_behavior.block_value = value;
                 block_behavior.SetCard(Montanhas[value], InfoMontanhas[value]);
                 block_index++;
+                blocks.Add(block_behavior);
             }
         }
         StartCoroutine(ShowAllThenHide());
@@ -170,7 +172,6 @@ public class Manager_Level : MonoBehaviour
     {
         onCardsEnabled.Invoke(false);
         yield return new WaitForSeconds(5f);
-        Block_Behavior[] blocks = FindObjectsOfType<Block_Behavior>();
         foreach (var block in blocks)
         {
             block.Flip(false);

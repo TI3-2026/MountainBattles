@@ -28,7 +28,7 @@ public class Block_Behavior : MonoBehaviour
         ImgMontanha.enabled = true;
         clickable = false; 
 
-        Manager_Game.Instance.manager_level.onCardsEnabled.AddListener(Clickabe);
+        Manager_Level.Instance.onCardsEnabled.AddListener(Clickabe);
     }
 
     /*
@@ -59,7 +59,7 @@ public class Block_Behavior : MonoBehaviour
             Flip(true);
             clickable = false;
 
-            Manager_Game.Instance.manager_level.BlockClicked(block_value, this);
+            Manager_Level.Instance.BlockClicked(block_value, this);
         }
     }
 
