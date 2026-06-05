@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-
 public class Manager_Level : MonoBehaviour
 {
     //Singleton
@@ -197,14 +196,14 @@ public class Manager_Level : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         canvas.SetActive(true);
-        if (DeuMatch == 7 && alpinista.alpinistavtr.y > 20)
+        if (DeuMatch == 7)
         {
             finaljogo.SetText("Vitória!");
             finaljogo.color = Color.green;
             yield return new WaitForSeconds(4f);
             SceneManager.LoadScene("Menu");
         }
-        else if (DeuMatch == 7 && alpinista.alpinistavtr.y < 20)
+        else
         {
             finaljogo.SetText("Derrota!");
             finaljogo.color = Color.red;

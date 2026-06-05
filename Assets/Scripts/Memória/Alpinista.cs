@@ -3,15 +3,11 @@ using UnityEngine;
 
 public class Alpinista : MonoBehaviour
 {
-    [Header("References")]
-
-    public Transform pos_inicio;
-    public Transform pos_final;
-
-    [Header("Variables")]
-    public int total_movimentos = 10;
+    [Header("Movimentacao")]
+    public GameObject[] pos_movimentos;
     public int movimentos = 0;
     public float movimento_duracao = 1f;
+    private int total_movimentos;
 
     public Vector3 alpinistavtr;
     public Vector3 movimento = new Vector3(0, 12, 0);
@@ -20,17 +16,15 @@ public class Alpinista : MonoBehaviour
     private void Start()
     {
         alpinistavtr = inicio;
+
+        transform.position = pos_movimentos[0].transform.position;
+        total_movimentos = pos_movimentos.Length-1;
     }
 
     public void AcertouCarta()
     {
         movimentos++;
-
-        Vector3 movement = (pos_final.position - pos_inicio.position)/total_movimentos;
-        movement *= movimentos;
-        
-        Vector3 destino = pos_inicio.position + movement;
-        LeanTween.move(gameObject, destino, movimento_duracao).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(gameObject, pos_movimentos[movimentos].transform.position, movimento_duracao).setEase(LeanTweenType.easeInOutSine);
     }
 
     // ! Refazer

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CameraScript : MonoBehaviour
@@ -10,6 +11,8 @@ public class CameraScript : MonoBehaviour
     [Header("Variaveis")]
     public float animacao_duracao = 1f;
 
+    private bool playerFocado = false;
+
     private void Start() {
         Manager_Level.Instance.camScript = this;
         
@@ -20,11 +23,22 @@ public class CameraScript : MonoBehaviour
     public void MostrarMontanha() {
         LeanTween.move(gameObject, pos_montanha.position, animacao_duracao)
         .setEase(LeanTweenType.easeInOutSine);
+        playerFocado = false;
     }
 
     // Mostrar o player novamente (posicao padrao)
     public void MostrarPlayer() {
         LeanTween.move(gameObject, pos_player.position, animacao_duracao)
         .setEase(LeanTweenType.easeInOutSine);
+        playerFocado = true;
+        StartCoroutine(I_AcompanharPlayer());
+    }
+
+    private IEnumerator I_AcompanharPlayer() {
+        yield return new WaitForSeconds(animacao_duracao);
+        while (playerFocado) {
+            transform.position = pos_player.position;
+            yield return null;
+        }
     }
 }
