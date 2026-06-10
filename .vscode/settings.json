@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "MountainBattles.sln"
+    "dotnet.defaultSolution": "MountainBattles.sln",
+    "dotrush.roslyn.projectOrSolutionFiles": []
 }

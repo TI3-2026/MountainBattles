@@ -14,7 +14,7 @@ public class CameraScript : MonoBehaviour
     private bool playerFocado = false;
 
     private void Start() {
-        Manager_Level.Instance.camScript = this;
+        ManagerLevel.Instance.camScript = this;
         
         gameObject.transform.position = pos_montanha.position;
     }

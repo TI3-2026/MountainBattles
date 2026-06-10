@@ -3,7 +3,12 @@ guid: 39789dfdb7d7dc1428b61dbddba27fca
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Branco
+    second: {fileID: 2100000, guid: 995bbfe3a0444fe45b0d4025745b516c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

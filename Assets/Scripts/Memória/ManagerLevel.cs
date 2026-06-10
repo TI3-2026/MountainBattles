@@ -5,46 +5,54 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class Manager_Level : MonoBehaviour
+public class ManagerLevel : MonoBehaviour
 {
     //Singleton
-    public static Manager_Level Instance { get; private set; }
+    public static ManagerLevel Instance { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
     }
 
-    [Header("References")]
+
+    [Header("Geração")]
+    public float espacamentoHorizontal = 2.25f;
+    public float espacamentoVertical = 4.4f;
+    public int linhas = 2;
+    public int colunas = 7;
+
+    [Header("Configurações de Jogo")]
+    public float tempoMostraInicial = 5f;
+
+    [Header("Referencias")]
+    public GameObject prefab_carta;
+    public Transform carta_pivot;
     public Alpinista alpinista;
     public GameObject canvas;
     public TextMeshProUGUI finaljogo;
 
-    [Header("Auto Preenchivel")]
+    [Header("Auto Preenchível")]
     public List<CartoesScript> cartoes_list;
     public CameraScript camScript;
     
-    [Header("Prefabs")]
-    public GameObject prefab_MemoryBlock;
+    [Header("Prefab")]
+    
 
-    [Header("Settings")]
-    public Transform cartoes_pivot;
 
-    // Generation Variables
-    public float block_row_offset = 2.25f;
-    private int blocks_row = 2;
-    public float block_column_offset = 4.4f;
-    private int blocks_column = 7;
 
     private int duos_blocks;
     private int[] block_values;
-    public string[] InfoMontanhas = { "VINSON – É a montanha mais fria entre os Sete Cumes.",
+    public string[] InfoMontanhas = 
+    {
+    "VINSON – É a montanha mais fria entre os Sete Cumes.",
     "DENALI – O Denali é geologicamente descrito como um enorme bloco de granito.",
     "ACONCÁGUA – O Aconcágua faz parte da Cordilheira dos Andes.",
     "EVEREST – O Everest cresce cerca de 4 milímetros por ano.",
     "ELBRUS – O Elbrus é um vulcão adormecido.",
     "KILIMANJARO – Por conta de sua neve, “Kilimanjaro” significa “Montanha Branca”.",
-    "PIRÂMIDE DE CARSTENSZ – Sua escalada exige técnicas de rapel e escalada em rocha."};
+    "PIRÂMIDE DE CARSTENSZ – Sua escalada exige técnicas de rapel e escalada em rocha."
+    };
     public Sprite[] Montanhas = new Sprite[7];
 
     // Level Control Variables
@@ -62,14 +70,13 @@ public class Manager_Level : MonoBehaviour
     private void Start()
     {
         canvas.SetActive(false);
-
-        GenerateLevel();
+        GerarNivel();
     }
 
-    private void GenerateLevel()
+    private void GerarNivel()
     {
-        duos_blocks = blocks_column * blocks_row / 2;
-        block_values = new int[blocks_column * blocks_row];
+        duos_blocks = colunas * linhas / 2;
+        block_values = new int[colunas * linhas];
         
         // Generate block values
         for (int i = 0; i < block_values.Length/2; i++){
@@ -86,41 +93,54 @@ public class Manager_Level : MonoBehaviour
         
         // Create blocks
         int block_index = 0;
-        for (int i = 0; i < blocks_column; i++)
+        for (int i = 0; i < colunas; i++)
         {
-            for (int j = 0; j < blocks_row; j++)
+            for (int j = 0; j < linhas; j++)
             {
-                Vector3 block_position = new Vector3(i * block_column_offset, 0, j * block_row_offset);
+                Vector3 posicaoCarta = new Vector3(i * espacamentoHorizontal, 0, j * espacamentoVertical);
 
-                GameObject block = Instantiate(prefab_MemoryBlock, cartoes_pivot);
-                CartoesScript block_behavior = block.GetComponent<CartoesScript>();
+                GameObject carta = Instantiate(prefab_carta, carta_pivot);
+                carta.name = $"Carta_{block_index}";
+                CartoesScript cartaScript = carta.GetComponent<CartoesScript>();
 
-                block.transform.localPosition = block_position;
+                carta.transform.localPosition = posicaoCarta;
                 int value = block_values[block_index];
-                block_behavior.block_value = value;
-                block_behavior.SetCard(Montanhas[value], InfoMontanhas[value]);
+                cartaScript.block_value = value;
+                cartaScript.SetCard(Montanhas[value], InfoMontanhas[value]);
                 block_index++;
-                cartoes_list.Add(block_behavior);
+                cartoes_list.Add(cartaScript);
             }
         }
-        StartCoroutine(ShowAllThenHide());
+        StartCoroutine(I_MostraInicial());
     }
 
-    public void BlockClicked(int value=-1, CartoesScript block=null)
+    private IEnumerator I_MostraInicial()
     {
-        // Error Handling
-        if (block == null) return;
+        onCardsEnabled.Invoke(false);
+        yield return new WaitForSeconds(tempoMostraInicial);
+        foreach (var cartao in cartoes_list)
+        {
+            cartao.Flip(false);
+        }
+        yield return new WaitForSeconds(0.3f); 
+        onCardsEnabled.Invoke(true);
+    }
 
-        // Block clicked
+    public void CartaClicada(int value=-1, CartoesScript cartao=null)
+    {
+        // Tratamento de erro
+        if (cartao == null) return;
+
+        // Cartao clicado
         if (first_block_value == -1)
         {
             first_block_value = value;
-            first_block = block;
+            first_block = cartao;
         }
         else if (second_block_value == -1)
         {
             second_block_value = value;
-            second_block = block;
+            second_block = cartao;
 
             onCardsEnabled.Invoke(false);
             CheckMatch();
@@ -152,15 +172,13 @@ public class Manager_Level : MonoBehaviour
     private IEnumerator I_CartoesAnimacao(bool match)
     {
         yield return new WaitForSeconds(1f);
-        first_block.Match(match);
-        second_block.Match(match);
 
         if (match) {
-            Vector3 pivot_position = cartoes_pivot.localPosition;
+            Vector3 pivot_position = carta_pivot.localPosition;
 
             yield return new WaitForSeconds(0.5f);
 
-            cartoes_pivot.localPosition = new Vector3(100, 100, 100); // Sumir com o objeto da tela
+            carta_pivot.localPosition = new Vector3(100, 100, 100); // Sumir com o objeto da tela
             yield return new WaitForSeconds(0.25f);
             camScript.MostrarPlayer();
             yield return new WaitForSeconds(camScript.animacao_duracao+0.25f);
@@ -170,7 +188,11 @@ public class Manager_Level : MonoBehaviour
 
             camScript.MostrarMontanha();
             yield return new WaitForSeconds(camScript.animacao_duracao+0.25f);
-            cartoes_pivot.localPosition = pivot_position;
+            carta_pivot.localPosition = pivot_position;
+        }else
+        {
+            first_block.ErrouMatch();
+            second_block.ErrouMatch();
         }
         
         yield return new WaitForSeconds(1.2f);
@@ -178,18 +200,6 @@ public class Manager_Level : MonoBehaviour
 
         first_block_value = -1;
         second_block_value = -1;
-    }
-
-    private IEnumerator ShowAllThenHide()
-    {
-        onCardsEnabled.Invoke(false);
-        yield return new WaitForSeconds(5f);
-        foreach (var cartao in cartoes_list)
-        {
-            cartao.Flip(false);
-        }
-        yield return new WaitForSeconds(0.3f); 
-        onCardsEnabled.Invoke(true);
     }
 
     private IEnumerator AcabarJogo()
