@@ -40,6 +40,10 @@ public class ManagerLevel : MonoBehaviour
     
 
 
+    // Cartas
+    private Vector3 cartaPivotPosicaoOriginal;
+    private Vector3 cartaPivotPosicaoSumir;
+    private float cartaPivotTempoSumir = 0.75f;
 
     private int duos_blocks;
     private int[] block_values;
@@ -58,10 +62,10 @@ public class ManagerLevel : MonoBehaviour
     // Level Control Variables
     public UnityEvent<bool> onCardsEnabled;
 
-    public int first_block_value = -1;
-    private CartoesScript first_block;
-    public int second_block_value = -1;
-    private CartoesScript second_block;
+    public int primeiraCartaValor = -1;
+    private CartoesScript primeiraCarta;
+    public int segundaCartaValor = -1;
+    private CartoesScript segundaCarta;
     public int Erro = 0;
     public int DeuMatch = 0;
 
@@ -69,6 +73,11 @@ public class ManagerLevel : MonoBehaviour
 
     private void Start()
     {
+        cartaPivotPosicaoOriginal = carta_pivot.localPosition;
+        cartaPivotPosicaoSumir = cartaPivotPosicaoOriginal + new Vector3(0, -10, 0);
+
+        carta_pivot.localPosition = cartaPivotPosicaoSumir;
+
         canvas.SetActive(false);
         GerarNivel();
     }
@@ -117,6 +126,9 @@ public class ManagerLevel : MonoBehaviour
     private IEnumerator I_MostraInicial()
     {
         onCardsEnabled.Invoke(false);
+        LeanTween.moveLocal(carta_pivot.gameObject, cartaPivotPosicaoOriginal, cartaPivotTempoSumir)
+        .setEase(LeanTweenType.easeInOutQuad);
+
         yield return new WaitForSeconds(tempoMostraInicial);
         foreach (var cartao in cartoes_list)
         {
@@ -132,15 +144,15 @@ public class ManagerLevel : MonoBehaviour
         if (cartao == null) return;
 
         // Cartao clicado
-        if (first_block_value == -1)
+        if (primeiraCartaValor == -1)
         {
-            first_block_value = value;
-            first_block = cartao;
+            primeiraCartaValor = value;
+            primeiraCarta = cartao;
         }
-        else if (second_block_value == -1)
+        else if (segundaCartaValor == -1)
         {
-            second_block_value = value;
-            second_block = cartao;
+            segundaCartaValor = value;
+            segundaCarta = cartao;
 
             onCardsEnabled.Invoke(false);
             CheckMatch();
@@ -150,7 +162,7 @@ public class ManagerLevel : MonoBehaviour
     private void CheckMatch()
     {
         //Match
-        if (first_block_value == second_block_value)
+        if (primeiraCartaValor == segundaCartaValor)
         {
             DeuMatch++;
             Erro = 0;
@@ -169,6 +181,7 @@ public class ManagerLevel : MonoBehaviour
         }
     }
 
+    // Animacao das cartas quando ocorre um match ou erro
     private IEnumerator I_CartoesAnimacao(bool match)
     {
         yield return new WaitForSeconds(1f);
@@ -187,19 +200,22 @@ public class ManagerLevel : MonoBehaviour
             yield return new WaitForSeconds(alpinista.movimento_duracao+0.25f);
 
             camScript.MostrarMontanha();
-            yield return new WaitForSeconds(camScript.animacao_duracao+0.25f);
+            yield return new WaitForSeconds(camScript.animacao_duracao);
             carta_pivot.localPosition = pivot_position;
+
+            primeiraCarta.DesabilitarCarta();
+            segundaCarta.DesabilitarCarta();
         }else
         {
-            first_block.ErrouMatch();
-            second_block.ErrouMatch();
+            primeiraCarta.ErrouMatch();
+            segundaCarta.ErrouMatch();
         }
-        
+
         yield return new WaitForSeconds(1.2f);
         onCardsEnabled.Invoke(true);
 
-        first_block_value = -1;
-        second_block_value = -1;
+        primeiraCartaValor = -1;
+        segundaCartaValor = -1;
     }
 
     private IEnumerator AcabarJogo()

@@ -20,6 +20,7 @@ public class CartoesScript : MonoBehaviour
 
     
 
+    private bool desabilitado = false;
     private bool clicavel = true;
     private Quaternion originalRotation;
 
@@ -46,8 +47,12 @@ public class CartoesScript : MonoBehaviour
         this.clicavel = clicavel;
     }
 
+    public void DesabilitarCarta() => desabilitado = true;
+
     public void ClicarCarta()
     {
+        if (desabilitado) return;
+
         if (clicavel)
         {
             Flip(true);
