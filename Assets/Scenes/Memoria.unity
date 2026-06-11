@@ -159,8 +159,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 107976258}
+  - component: {fileID: 107976259}
   m_Layer: 0
-  m_Name: AncoraCartas
+  m_Name: CartasAncora
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,13 +175,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107976257}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.5, y: -2, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 434005498}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_Father: {fileID: 259468723}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &107976259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107976257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8a0e685d0ba8442a75c17d0f53ac09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CartoesAncoraScript
 --- !u!1 &151653446
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,6 +302,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b340ab671d1daaf42b1ae898b490d525, type: 3}
+--- !u!1 &259468722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 259468723}
+  - component: {fileID: 259468724}
+  m_Layer: 0
+  m_Name: CartasPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &259468723
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259468722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 107976258}
+  m_Father: {fileID: 434005498}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &259468724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259468722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8397a520719d4b04283ebcdc9aa3286a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CartoesPivotScript
+  tempoTransicao: 0.5
 --- !u!1 &325837881
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +473,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 107976258}
+  - {fileID: 259468723}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &434005499
@@ -873,11 +932,12 @@ MonoBehaviour:
   colunas: 7
   tempoMostraInicial: 3
   prefab_carta: {fileID: 84112898156602547, guid: 3e5415f495d01fd459d1dad74aae86cf, type: 3}
-  carta_pivot: {fileID: 107976258}
   alpinista: {fileID: 598732446}
   canvas: {fileID: 1204164101}
   finaljogo: {fileID: 962661663}
-  cartoes_list: []
+  cartoesList: []
+  cartoesAncora: {fileID: 0}
+  cartoesPivot: {fileID: 0}
   camScript: {fileID: 0}
   InfoMontanhas:
   - "VINSON \u2013 \xC9 a montanha mais fria entre os Sete Cumes."
@@ -901,8 +961,8 @@ MonoBehaviour:
   onCardsEnabled:
     m_PersistentCalls:
       m_Calls: []
-  first_block_value: -1
-  second_block_value: -1
+  primeiraCartaValor: -1
+  segundaCartaValor: -1
   Erro: 0
   DeuMatch: 0
 --- !u!4 &762342082
@@ -1816,9 +1876,9 @@ SceneRoots:
   - {fileID: 1889062709}
   - {fileID: 1218905703}
   - {fileID: 762342082}
+  - {fileID: 434005498}
   - {fileID: 1431538310}
   - {fileID: 1764876583}
-  - {fileID: 434005498}
   - {fileID: 1752622749}
   - {fileID: 598732450}
   - {fileID: 2091635826}

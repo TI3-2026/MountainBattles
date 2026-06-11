@@ -22,19 +22,19 @@ public class CartoesScript : MonoBehaviour
 
     private bool desabilitado = false;
     private bool clicavel = true;
-    private Quaternion originalRotation;
 
     private void Start()
     {
-        originalRotation = transform.rotation;
+        transform.Rotate(0, 180, 0);
         canvas.worldCamera = Camera.main;
-        //number.enabled = false;
+
         infoMontanha.enabled = true;
         ImgMontanha.enabled = true;
         clicavel = false; 
 
         ManagerLevel.Instance.onCardsEnabled.AddListener(Clicavel);
     }
+
 
     public void SetCard(Sprite sprite, string texto)
     {
@@ -48,7 +48,6 @@ public class CartoesScript : MonoBehaviour
     }
 
     public void DesabilitarCarta() => desabilitado = true;
-
     public void ClicarCarta()
     {
         if (desabilitado) return;
@@ -75,8 +74,8 @@ public class CartoesScript : MonoBehaviour
     {
         LeanTween.cancel(gameObject);
 
-        if (showFront) LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 0), tempoFlip).setEaseOutQuad();
-        else LeanTween.rotateLocal(gameObject, new Vector3(0, 0, -180), tempoFlip).setEaseOutQuad();
+        if (showFront) LeanTween.rotateLocal(gameObject, new Vector3(0, 180, 0), tempoFlip).setEaseOutQuad();
+        else LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 0), tempoFlip).setEaseOutQuad();
     }
 
     

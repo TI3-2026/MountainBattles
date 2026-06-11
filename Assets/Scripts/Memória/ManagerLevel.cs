@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+[DefaultExecutionOrder(-1)]
 public class ManagerLevel : MonoBehaviour
 {
     //Singleton
@@ -27,23 +28,17 @@ public class ManagerLevel : MonoBehaviour
 
     [Header("Referencias")]
     public GameObject prefab_carta;
-    public Transform carta_pivot;
     public Alpinista alpinista;
     public GameObject canvas;
     public TextMeshProUGUI finaljogo;
 
     [Header("Auto Preenchível")]
-    public List<CartoesScript> cartoes_list;
+    public List<CartoesScript> cartoesList;
+    public CartoesAncoraScript cartoesAncora;
+    public CartoesPivotScript cartoesPivot;
     public CameraScript camScript;
-    
-    [Header("Prefab")]
-    
 
-
-    // Cartas
-    private Vector3 cartaPivotPosicaoOriginal;
-    private Vector3 cartaPivotPosicaoSumir;
-    private float cartaPivotTempoSumir = 0.75f;
+    
 
     private int duos_blocks;
     private int[] block_values;
@@ -73,11 +68,6 @@ public class ManagerLevel : MonoBehaviour
 
     private void Start()
     {
-        cartaPivotPosicaoOriginal = carta_pivot.localPosition;
-        cartaPivotPosicaoSumir = cartaPivotPosicaoOriginal + new Vector3(0, -10, 0);
-
-        carta_pivot.localPosition = cartaPivotPosicaoSumir;
-
         canvas.SetActive(false);
         GerarNivel();
     }
@@ -106,9 +96,9 @@ public class ManagerLevel : MonoBehaviour
         {
             for (int j = 0; j < linhas; j++)
             {
-                Vector3 posicaoCarta = new Vector3(i * espacamentoHorizontal, 0, j * espacamentoVertical);
+                Vector3 posicaoCarta = new Vector3(i * espacamentoHorizontal, j * espacamentoVertical, 0);
 
-                GameObject carta = Instantiate(prefab_carta, carta_pivot);
+                GameObject carta = Instantiate(prefab_carta, cartoesAncora.transform);
                 carta.name = $"Carta_{block_index}";
                 CartoesScript cartaScript = carta.GetComponent<CartoesScript>();
 
@@ -117,7 +107,7 @@ public class ManagerLevel : MonoBehaviour
                 cartaScript.block_value = value;
                 cartaScript.SetCard(Montanhas[value], InfoMontanhas[value]);
                 block_index++;
-                cartoes_list.Add(cartaScript);
+                cartoesList.Add(cartaScript);
             }
         }
         StartCoroutine(I_MostraInicial());
@@ -126,11 +116,10 @@ public class ManagerLevel : MonoBehaviour
     private IEnumerator I_MostraInicial()
     {
         onCardsEnabled.Invoke(false);
-        LeanTween.moveLocal(carta_pivot.gameObject, cartaPivotPosicaoOriginal, cartaPivotTempoSumir)
-        .setEase(LeanTweenType.easeInOutQuad);
+        cartoesPivot.AparecerCartas();
 
         yield return new WaitForSeconds(tempoMostraInicial);
-        foreach (var cartao in cartoes_list)
+        foreach (var cartao in cartoesList)
         {
             cartao.Flip(false);
         }
@@ -167,10 +156,10 @@ public class ManagerLevel : MonoBehaviour
             DeuMatch++;
             Erro = 0;
             StartCoroutine(I_CartoesAnimacao(match: true));
-            if(DeuMatch == 7)
-            {
-                StartCoroutine(AcabarJogo());
-            }
+
+
+            // Vitória
+            if(DeuMatch == 7) StartCoroutine(AcabarJogo());
         }
         else //UnMatch
         {
@@ -180,19 +169,14 @@ public class ManagerLevel : MonoBehaviour
             StartCoroutine(I_CartoesAnimacao(match: false));
         }
     }
-
-    // Animacao das cartas quando ocorre um match ou erro
     private IEnumerator I_CartoesAnimacao(bool match)
     {
         yield return new WaitForSeconds(1f);
 
         if (match) {
-            Vector3 pivot_position = carta_pivot.localPosition;
+            cartoesPivot.DesaparecerCartas();
+            yield return new WaitForSeconds(cartoesPivot.tempoTransicao-0.15f);
 
-            yield return new WaitForSeconds(0.5f);
-
-            carta_pivot.localPosition = new Vector3(100, 100, 100); // Sumir com o objeto da tela
-            yield return new WaitForSeconds(0.25f);
             camScript.MostrarPlayer();
             yield return new WaitForSeconds(camScript.animacao_duracao+0.25f);
 
@@ -201,8 +185,8 @@ public class ManagerLevel : MonoBehaviour
 
             camScript.MostrarMontanha();
             yield return new WaitForSeconds(camScript.animacao_duracao);
-            carta_pivot.localPosition = pivot_position;
 
+            cartoesPivot.AparecerCartas();
             primeiraCarta.DesabilitarCarta();
             segundaCarta.DesabilitarCarta();
         }else
