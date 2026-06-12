@@ -10,6 +10,9 @@ public class CartoesScript : MonoBehaviour
     public float tempoFlip = 0.15f;
 
     [Header("Referencias")]
+    public GameObject cartaObj;
+    public Material materialMatch;
+    // UI
     public Canvas canvas;
     public TextMeshProUGUI infoMontanha;
     public Image ImgMontanha;
@@ -36,18 +39,21 @@ public class CartoesScript : MonoBehaviour
     }
 
 
-    public void SetCard(Sprite sprite, string texto)
+    public void DefinirCarta(Sprite sprite, string texto)
     {
         ImgMontanha.sprite = sprite;
         infoMontanha.text = texto;
     }
 
-    private void Clicavel(bool clicavel)
+    public void Clicavel(bool clicavel)
     {
         this.clicavel = clicavel;
     }
 
+    // Match
+    public void DefinirMaterialMatch() => cartaObj.GetComponent<Renderer>().material = materialMatch;
     public void DesabilitarCarta() => desabilitado = true;
+
     public void ClicarCarta()
     {
         if (desabilitado) return;

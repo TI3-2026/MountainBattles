@@ -105,7 +105,7 @@ public class ManagerLevel : MonoBehaviour
                 carta.transform.localPosition = posicaoCarta;
                 int value = block_values[block_index];
                 cartaScript.block_value = value;
-                cartaScript.SetCard(Montanhas[value], InfoMontanhas[value]);
+                cartaScript.DefinirCarta(Montanhas[value], InfoMontanhas[value]);
                 block_index++;
                 cartoesList.Add(cartaScript);
             }
@@ -171,17 +171,21 @@ public class ManagerLevel : MonoBehaviour
     }
     private IEnumerator I_CartoesAnimacao(bool match)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         if (match) {
+            primeiraCarta.DefinirMaterialMatch();
+            segundaCarta.DefinirMaterialMatch();
+            yield return new WaitForSeconds(1f);
+
             cartoesPivot.DesaparecerCartas();
-            yield return new WaitForSeconds(cartoesPivot.tempoTransicao-0.15f);
+            yield return new WaitForSeconds(cartoesPivot.tempoTransicao);
 
             camScript.MostrarPlayer();
-            yield return new WaitForSeconds(camScript.animacao_duracao+0.25f);
+            yield return new WaitForSeconds(camScript.animacao_duracao);
 
             alpinista.AcertouCarta();
-            yield return new WaitForSeconds(alpinista.movimento_duracao+0.25f);
+            yield return new WaitForSeconds(alpinista.movimento_duracao);
 
             camScript.MostrarMontanha();
             yield return new WaitForSeconds(camScript.animacao_duracao);
