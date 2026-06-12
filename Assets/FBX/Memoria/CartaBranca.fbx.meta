@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Branco
-    second: {fileID: 2100000, guid: 995bbfe3a0444fe45b0d4025745b516c, type: 2}
+    second: {fileID: 2100000, guid: 9474773d89815fa47ba71af30656c268, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
