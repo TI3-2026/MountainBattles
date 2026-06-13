@@ -7,6 +7,7 @@ public class changeCamera : MonoBehaviour
     public CinemachineCamera currentCamera;
     public CinemachineCamera nextCamera;
     public GameObject canvastoOpen;
+    public GameObject canvastoClose;
 
     public void OnMouseDown()
     {
@@ -18,6 +19,7 @@ public class changeCamera : MonoBehaviour
 
     IEnumerator OpenCanvasAfterDelay()
     {
+        canvastoClose.SetActive(false);
         yield return new WaitForSeconds(2f);
         canvastoOpen.SetActive(true);
     }
@@ -25,10 +27,15 @@ public class changeCamera : MonoBehaviour
 
     public void BackButton()
     {
-        canvastoOpen.SetActive(false);
-        
         currentCamera.Priority= 10;
         nextCamera.Priority= 0;
+        StartCoroutine(CloseCanvasAfterDelay());
     }
 
+    IEnumerator CloseCanvasAfterDelay()
+    {
+        canvastoOpen.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        canvastoClose.SetActive(true);
+    }
 }
