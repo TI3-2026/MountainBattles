@@ -18,13 +18,11 @@ public class CartoesScript : MonoBehaviour
     public Image ImgMontanha;
 
 
-    [Header("Auto Preenchivel")]
-    public int block_value;
-
-    
-
+    [Header("Variáveis de controle. Não modificar.")]
+    public int duplaValor;
     private bool desabilitado = false;
     private bool clicavel = true;
+    
 
     private void Start()
     {
@@ -63,7 +61,7 @@ public class CartoesScript : MonoBehaviour
             Flip(true);
             clicavel = false;
 
-            ManagerLevel.Instance.CartaClicada(block_value, this);
+            ManagerLevel.Instance.CartaClicada(duplaValor, this);
         }
     }
 

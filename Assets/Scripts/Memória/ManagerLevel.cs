@@ -17,6 +17,10 @@ public class ManagerLevel : MonoBehaviour
     }
 
 
+    [Header("Eventos")]
+    public UnityEvent<bool> onCardsEnabled;
+
+
     [Header("Geração")]
     public float espacamentoHorizontal = 2.25f;
     public float espacamentoVertical = 4.4f;
@@ -29,23 +33,13 @@ public class ManagerLevel : MonoBehaviour
     public float tempoMostraErro = 4f;
     public int DeuMatch = 0;
 
-
     [Header("Referencias")]
     public GameObject prefab_carta;
     public Alpinista alpinista;
     public GameObject canvas;
     public TextMeshProUGUI finaljogo;
 
-    [Header("Auto Preenchível")]
-    public List<CartoesScript> cartoesList;
-    public CartoesAncoraScript cartoesAncora;
-    public CartoesPivotScript cartoesPivot;
-    public CameraScript camScript;
-
-    
-
-    private int duos_blocks;
-    private int[] block_values;
+    [Header("Info das montanhas")]
     public string[] InfoMontanhas = 
     {
     "VINSON – É a montanha mais fria entre os Sete Cumes.",
@@ -58,13 +52,16 @@ public class ManagerLevel : MonoBehaviour
     };
     public Sprite[] Montanhas = new Sprite[7];
 
-    // Level Control Variables
-    public UnityEvent<bool> onCardsEnabled;
-
-    public int primeiraCartaValor = -1;
+    [Header("Outras variáveis/referências. Não modificar.")]
+    public List<CartoesScript> cartoesList;
+    public CartoesAncoraScript cartoesAncora;
+    public CartoesPivotScript cartoesPivot;
     private CartoesScript primeiraCarta;
-    public int segundaCartaValor = -1;
     private CartoesScript segundaCarta;
+    private int duplas;
+    private int[] duplasValores;
+    public int primeiraCartaValor = -1;
+    public int segundaCartaValor = -1;
     public int Erro = 0;
     
     // ==================== Functions ====================
@@ -77,24 +74,22 @@ public class ManagerLevel : MonoBehaviour
 
     private void GerarNivel()
     {
-        duos_blocks = colunas * linhas / 2;
-        block_values = new int[colunas * linhas];
+        duplas = colunas * linhas / 2;
+        duplasValores = new int[colunas * linhas];
         
         // Generate block values
-        for (int i = 0; i < block_values.Length/2; i++){
-            block_values[i*2] = i;
-            block_values[i*2 + 1] = i;
+        for (int i = 0; i < duplasValores.Length/2; i++){
+            duplasValores[i*2] = i;
+            duplasValores[i*2 + 1] = i;
         }
         // Shuffle block values
-        for (int i = 0; i < block_values.Length; i++){
-            int random_index = Random.Range(0, block_values.Length);
-            int temp = block_values[i];
-            block_values[i] = block_values[random_index];
-            block_values[random_index] = temp;
+        for (int i = 0; i < duplasValores.Length; i++){
+            int random_index = Random.Range(0, duplasValores.Length);
+            (duplasValores[random_index], duplasValores[i]) = (duplasValores[i], duplasValores[random_index]);
         }
-        
+
         // Create blocks
-        int block_index = 0;
+        int duplaIndex = 0;
         for (int i = 0; i < colunas; i++)
         {
             for (int j = 0; j < linhas; j++)
@@ -102,14 +97,14 @@ public class ManagerLevel : MonoBehaviour
                 Vector3 posicaoCarta = new Vector3(i * espacamentoHorizontal, j * espacamentoVertical, 0);
 
                 GameObject carta = Instantiate(prefab_carta, cartoesAncora.transform);
-                carta.name = $"Carta_{block_index}";
+                carta.name = $"Carta_{duplaIndex}";
                 carta.transform.localPosition = posicaoCarta;
 
                 CartoesScript cartaScript = carta.GetComponent<CartoesScript>();
-                int value = block_values[block_index];
-                cartaScript.block_value = value;
+                int value = duplasValores[duplaIndex];
+                cartaScript.duplaValor = value;
                 cartaScript.DefinirCarta(Montanhas[value], InfoMontanhas[value]);
-                block_index++;
+                duplaIndex++;
                 cartoesList.Add(cartaScript);
             }
         }
@@ -149,7 +144,7 @@ public class ManagerLevel : MonoBehaviour
             CheckMatch();
         }
     }
-
+   
     private void CheckMatch()
     {
         //Match
@@ -179,9 +174,6 @@ public class ManagerLevel : MonoBehaviour
             cartoesPivot.DesaparecerCartas();
             yield return new WaitForSeconds(cartoesPivot.tempoTransicao);
 
-            //camScript.MostrarPlayer();
-            //yield return new WaitForSeconds(camScript.animacao_duracao);
-
             alpinista.AcertouCarta();
             yield return new WaitForSeconds(alpinista.movimento_duracao);
 
@@ -191,10 +183,7 @@ public class ManagerLevel : MonoBehaviour
                 yield return new WaitForSeconds(4f);
                 SceneManager.LoadScene("Menu");
             }
-            
 
-            //camScript.MostrarMontanha();
-            //yield return new WaitForSeconds(camScript.animacao_duracao);
 
             cartoesPivot.AparecerCartas();
             primeiraCarta.DesabilitarCarta();

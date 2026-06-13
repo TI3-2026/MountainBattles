@@ -418,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9474773d89815fa47ba71af30656c268, type: 2}
     - target: {fileID: 919132149155446097, guid: b340ab671d1daaf42b1ae898b490d525, type: 3}
       propertyPath: m_Name
-      value: Montanha
+      value: Inultilizado_Montanha
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b340ab671d1daaf42b1ae898b490d525, type: 3}
       propertyPath: m_IsActive
@@ -834,7 +834,7 @@ GameObject:
   - component: {fileID: 521770868}
   - component: {fileID: 521770867}
   m_Layer: 0
-  m_Name: Fog
+  m_Name: Inultilizado_Fog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -953,6 +953,7 @@ GameObject:
   - component: {fileID: 598732448}
   - component: {fileID: 598732447}
   - component: {fileID: 598732446}
+  - component: {fileID: 598732451}
   m_Layer: 0
   m_Name: Alpinista
   m_TagString: Untagged
@@ -1073,7 +1074,7 @@ Transform:
   m_GameObject: {fileID: 598732445}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 70, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1083,6 +1084,18 @@ Transform:
   - {fileID: 434005498}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &598732451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598732445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f3182319d0622c42bd46e17c50be015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JogadorScript
 --- !u!1 &664696501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,6 +1432,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb43d62607a2184283ded74145ef0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Manager_Level
+  onCardsEnabled:
+    m_PersistentCalls:
+      m_Calls: []
   espacamentoHorizontal: 2.25
   espacamentoVertical: 4.4
   linhas: 2
@@ -1426,15 +1442,11 @@ MonoBehaviour:
   tempoMostraInicial: 3
   tempoMostraAcerto: 3
   tempoMostraErro: 1
-  DeuMatch: 6
+  DeuMatch: 0
   prefab_carta: {fileID: 84112898156602547, guid: 3e5415f495d01fd459d1dad74aae86cf, type: 3}
   alpinista: {fileID: 598732446}
   canvas: {fileID: 1204164101}
   finaljogo: {fileID: 962661663}
-  cartoesList: []
-  cartoesAncora: {fileID: 0}
-  cartoesPivot: {fileID: 0}
-  camScript: {fileID: 0}
   InfoMontanhas:
   - "VINSON \u2013 \xC9 a montanha mais fria entre os Sete Cumes."
   - "DENALI \u2013 O Denali \xE9 geologicamente descrito como um enorme bloco de
@@ -1454,9 +1466,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 87bb1d5a81f778e4dacc9a6f6f45913a, type: 3}
   - {fileID: 21300000, guid: 94b2cd6ce7f38f1499d6ed75407bb17b, type: 3}
   - {fileID: 21300000, guid: 7337396c9aa11364784bcd9b3bdde94f, type: 3}
-  onCardsEnabled:
-    m_PersistentCalls:
-      m_Calls: []
+  cartoesList: []
+  cartoesAncora: {fileID: 0}
+  cartoesPivot: {fileID: 0}
   primeiraCartaValor: -1
   segundaCartaValor: -1
   Erro: 0
@@ -1732,8 +1744,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 70, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 1995069864}
+  m_Children: []
   m_Father: {fileID: 2091635826}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &970727758
@@ -2029,7 +2040,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1176747033
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2117,8 +2128,8 @@ Transform:
   m_GameObject: {fileID: 1176747032}
   serializedVersion: 2
   m_LocalRotation: {x: -1, y: -0, z: 0.0000005066394, w: 0}
-  m_LocalPosition: {x: -32, y: 25.2, z: 4.6}
-  m_LocalScale: {x: 71.5, y: 50, z: 50}
+  m_LocalPosition: {x: -28.3205, y: 37.446, z: -0.1374}
+  m_LocalScale: {x: 50.94375, y: 92.90937, z: 37.763153}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2135,7 +2146,7 @@ GameObject:
   - component: {fileID: 1186495594}
   - component: {fileID: 1186495593}
   m_Layer: 0
-  m_Name: Terreno
+  m_Name: Inultilizado_Terreno
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2472,7 +2483,8 @@ Transform:
   m_LocalPosition: {x: -3, y: 37.6047, z: 0}
   m_LocalScale: {x: 9.331394, y: 1, z: 3.868}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1995069864}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1001 &1403315778
@@ -2537,50 +2549,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6e9b5e9f43d3b2e4182c2ff372174fd8, type: 3}
   m_PrefabInstance: {fileID: 1403315778}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1431538308
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1431538310}
-  - component: {fileID: 1431538309}
-  m_Layer: 0
-  m_Name: Jogador
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1431538309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431538308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f3182319d0622c42bd46e17c50be015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::JogadorScript
---- !u!4 &1431538310
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431538308}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1511944251 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b340ab671d1daaf42b1ae898b490d525, type: 3}
@@ -2730,37 +2698,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 598732450}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!1 &1752622748
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1752622749}
-  m_Layer: 0
-  m_Name: Cam_Montanha
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1752622749
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752622748}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 159.6, y: 181.3, z: -1.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1764876582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2988,12 +2925,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995069863}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0334, y: -0.022, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.44111}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071065, w: 0.7071071}
+  m_LocalPosition: {x: -3.257316, y: -0.33997345, z: 0}
+  m_LocalScale: {x: 1, y: 0.02679128, z: 10.341262}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 970727757}
+  m_Father: {fileID: 1260959419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1995069865
 BoxCollider:
@@ -3124,7 +3061,6 @@ SceneRoots:
   - {fileID: 1218905703}
   - {fileID: 762342082}
   - {fileID: 1649379570}
-  - {fileID: 1431538310}
   - {fileID: 598732450}
   - {fileID: 2091635826}
   - {fileID: 1764876583}
@@ -3132,5 +3068,4 @@ SceneRoots:
   - {fileID: 1186495595}
   - {fileID: 259234283}
   - {fileID: 1176747036}
-  - {fileID: 1752622749}
   - {fileID: 1260959419}
