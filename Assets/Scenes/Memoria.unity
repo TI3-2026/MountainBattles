@@ -14,12 +14,12 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 299.59
+  m_LinearFogStart: 200
+  m_LinearFogEnd: 400
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -739,7 +739,7 @@ Transform:
   m_GameObject: {fileID: 434005495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.5, y: 200, z: -160}
+  m_LocalPosition: {x: 11.5, y: 112.5, z: -160}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -949,7 +949,7 @@ Transform:
   m_GameObject: {fileID: 521770866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.5, y: 200, z: -142}
+  m_LocalPosition: {x: 0, y: 125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2745,10 +2745,10 @@ SceneRoots:
   - {fileID: 434005498}
   - {fileID: 1431538310}
   - {fileID: 1764876583}
+  - {fileID: 521770869}
   - {fileID: 1752622749}
   - {fileID: 598732450}
   - {fileID: 2091635826}
   - {fileID: 1176747036}
   - {fileID: 259234283}
   - {fileID: 1186495595}
-  - {fileID: 521770869}
