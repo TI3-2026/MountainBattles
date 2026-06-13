@@ -27,6 +27,8 @@ public class ManagerLevel : MonoBehaviour
     public float tempoMostraInicial = 5f;
     public float tempoMostraAcerto = 2f;
     public float tempoMostraErro = 4f;
+    public int DeuMatch = 0;
+
 
     [Header("Referencias")]
     public GameObject prefab_carta;
@@ -64,8 +66,7 @@ public class ManagerLevel : MonoBehaviour
     public int segundaCartaValor = -1;
     private CartoesScript segundaCarta;
     public int Erro = 0;
-    public int DeuMatch = 0;
-
+    
     // ==================== Functions ====================
 
     private void Start()
@@ -102,9 +103,9 @@ public class ManagerLevel : MonoBehaviour
 
                 GameObject carta = Instantiate(prefab_carta, cartoesAncora.transform);
                 carta.name = $"Carta_{block_index}";
-                CartoesScript cartaScript = carta.GetComponent<CartoesScript>();
-
                 carta.transform.localPosition = posicaoCarta;
+
+                CartoesScript cartaScript = carta.GetComponent<CartoesScript>();
                 int value = block_values[block_index];
                 cartaScript.block_value = value;
                 cartaScript.DefinirCarta(Montanhas[value], InfoMontanhas[value]);
@@ -178,8 +179,8 @@ public class ManagerLevel : MonoBehaviour
             cartoesPivot.DesaparecerCartas();
             yield return new WaitForSeconds(cartoesPivot.tempoTransicao);
 
-            camScript.MostrarPlayer();
-            yield return new WaitForSeconds(camScript.animacao_duracao);
+            //camScript.MostrarPlayer();
+            //yield return new WaitForSeconds(camScript.animacao_duracao);
 
             alpinista.AcertouCarta();
             yield return new WaitForSeconds(alpinista.movimento_duracao);
@@ -190,9 +191,10 @@ public class ManagerLevel : MonoBehaviour
                 yield return new WaitForSeconds(4f);
                 SceneManager.LoadScene("Menu");
             }
+            
 
-            camScript.MostrarMontanha();
-            yield return new WaitForSeconds(camScript.animacao_duracao);
+            //camScript.MostrarMontanha();
+            //yield return new WaitForSeconds(camScript.animacao_duracao);
 
             cartoesPivot.AparecerCartas();
             primeiraCarta.DesabilitarCarta();

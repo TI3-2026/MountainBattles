@@ -10,7 +10,7 @@ public class CartoesPivotScript : MonoBehaviour
     }
 
     private void Start() {
-        transform.rotation = Quaternion.Euler(-90, 0, 0); // Rotação inicial para sumir as cartas
+        transform.localRotation = Quaternion.Euler(-90, 0, 0); // Rotação inicial para sumir as cartas
     }
 
     public void DesaparecerCartas() 

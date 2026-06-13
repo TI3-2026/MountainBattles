@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 675080073143176294}
   - component: {fileID: 6722486961710430859}
   - component: {fileID: 5056568777926605505}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Carta
   m_TagString: Carta
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 8147774192736722046}
   - component: {fileID: 4665312632999533258}
   - component: {fileID: 6073658939209287547}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Imagem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 8064428081888558770}
   - component: {fileID: 66586941436228283}
   - component: {fileID: 6195039436189467880}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 3263316729574753051}
   - component: {fileID: 4814725304538062330}
   - component: {fileID: 5526086823488468089}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Informacao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,6 +443,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carta
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 39789dfdb7d7dc1428b61dbddba27fca, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -533,6 +537,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 39789dfdb7d7dc1428b61dbddba27fca, type: 3}
       propertyPath: m_Name
       value: Carta_Outline
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 39789dfdb7d7dc1428b61dbddba27fca, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 39789dfdb7d7dc1428b61dbddba27fca, type: 3}
       propertyPath: m_IsActive

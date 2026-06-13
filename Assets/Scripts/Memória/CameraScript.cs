@@ -16,7 +16,7 @@ public class CameraScript : MonoBehaviour
     private void Start() {
         ManagerLevel.Instance.camScript = this;
         
-        gameObject.transform.position = pos_montanha.position;
+        //gameObject.transform.position = pos_montanha.position;
     }
 
     // Mostrar toda a cena para mostrar toda a montanha
