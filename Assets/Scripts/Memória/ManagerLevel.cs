@@ -25,6 +25,8 @@ public class ManagerLevel : MonoBehaviour
 
     [Header("Configurações de Jogo")]
     public float tempoMostraInicial = 5f;
+    public float tempoMostraAcerto = 2f;
+    public float tempoMostraErro = 4f;
 
     [Header("Referencias")]
     public GameObject prefab_carta;
@@ -112,7 +114,6 @@ public class ManagerLevel : MonoBehaviour
         }
         StartCoroutine(I_MostraInicial());
     }
-
     private IEnumerator I_MostraInicial()
     {
         onCardsEnabled.Invoke(false);
@@ -155,11 +156,7 @@ public class ManagerLevel : MonoBehaviour
         {
             DeuMatch++;
             Erro = 0;
-            StartCoroutine(I_CartoesAnimacao(match: true));
-
-
-            // Vitória
-            if(DeuMatch == 7) StartCoroutine(AcabarJogo());
+            StartCoroutine(I_CartoesAnimacao(match: true, acabarJogo: DeuMatch == 7));
         }
         else //UnMatch
         {
@@ -169,14 +166,14 @@ public class ManagerLevel : MonoBehaviour
             StartCoroutine(I_CartoesAnimacao(match: false));
         }
     }
-    private IEnumerator I_CartoesAnimacao(bool match)
+    private IEnumerator I_CartoesAnimacao(bool match, bool acabarJogo = false)
     {
         yield return new WaitForSeconds(0.5f);
 
         if (match) {
             primeiraCarta.DefinirMaterialMatch();
             segundaCarta.DefinirMaterialMatch();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(tempoMostraAcerto);
 
             cartoesPivot.DesaparecerCartas();
             yield return new WaitForSeconds(cartoesPivot.tempoTransicao);
@@ -187,6 +184,13 @@ public class ManagerLevel : MonoBehaviour
             alpinista.AcertouCarta();
             yield return new WaitForSeconds(alpinista.movimento_duracao);
 
+            if (acabarJogo)
+            {
+                AcabarJogo();
+                yield return new WaitForSeconds(4f);
+                SceneManager.LoadScene("Menu");
+            }
+
             camScript.MostrarMontanha();
             yield return new WaitForSeconds(camScript.animacao_duracao);
 
@@ -195,8 +199,8 @@ public class ManagerLevel : MonoBehaviour
             segundaCarta.DesabilitarCarta();
         }else
         {
-            primeiraCarta.ErrouMatch();
-            segundaCarta.ErrouMatch();
+            primeiraCarta.ErrouMatch(tempoMostraErro);
+            segundaCarta.ErrouMatch(tempoMostraErro);
         }
 
         yield return new WaitForSeconds(1.2f);
@@ -206,23 +210,18 @@ public class ManagerLevel : MonoBehaviour
         segundaCartaValor = -1;
     }
 
-    private IEnumerator AcabarJogo()
+    private void AcabarJogo()
     {
-        yield return new WaitForSeconds(1f);
         canvas.SetActive(true);
         if (DeuMatch == 7)
         {
             finaljogo.SetText("Vitória!");
             finaljogo.color = Color.green;
-            yield return new WaitForSeconds(4f);
-            SceneManager.LoadScene("Menu");
         }
         else
         {
             finaljogo.SetText("Derrota!");
             finaljogo.color = Color.red;
-            yield return new WaitForSeconds(4f);
-            SceneManager.LoadScene("Menu");
         }
     }
 }

@@ -67,11 +67,11 @@ public class CartoesScript : MonoBehaviour
         }
     }
 
-    public void ErrouMatch() => StartCoroutine(I_ErroMatch());
-    private IEnumerator I_ErroMatch()
+    public void ErrouMatch(float tempo) => StartCoroutine(I_ErroMatch(tempo));
+    private IEnumerator I_ErroMatch(float tempo)
     {
         clicavel = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(tempo);
         Flip(false);
         clicavel = true;
     }
