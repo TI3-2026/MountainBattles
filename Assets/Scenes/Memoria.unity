@@ -1087,6 +1087,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 130378053}
+  - {fileID: 1825441722}
   - {fileID: 1712223621}
   - {fileID: 434005498}
   m_Father: {fileID: 0}
@@ -1476,17 +1477,6 @@ MonoBehaviour:
   alpinista: {fileID: 598732446}
   canvas: {fileID: 1204164101}
   finaljogo: {fileID: 962661663}
-  InfoMontanhas:
-  - "VINSON \u2013 \xC9 a montanha mais fria entre os Sete Cumes."
-  - "DENALI \u2013 O Denali \xE9 geologicamente descrito como um enorme bloco de
-    granito."
-  - "ACONC\xC1GUA \u2013 O Aconc\xE1gua faz parte da Cordilheira dos Andes."
-  - "EVEREST \u2013 O Everest cresce cerca de 4 mil\xEDmetros por ano."
-  - "ELBRUS \u2013 O Elbrus \xE9 um vulc\xE3o adormecido."
-  - "KILIMANJARO \u2013 Por conta de sua neve, \u201CKilimanjaro\u201D significa
-    \u201CMontanha Branca\u201D."
-  - "PIR\xC2MIDE DE CARSTENSZ \u2013 Sua escalada exige t\xE9cnicas de rapel e escalada
-    em rocha."
   Montanhas:
   - {fileID: 21300000, guid: a36517aef2aa8704b90ef69a30f6b75d, type: 3}
   - {fileID: 21300000, guid: 23d0a163b07998943bbb4f4fa87bec10, type: 3}
@@ -2614,6 +2604,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1825441721
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 598732450}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 886698801788127956, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 57cfb33ed76a3e841a1444b9e8c837fb, type: 2}
+    - target: {fileID: 919132149155446097, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_Name
+      value: Alpinista (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+--- !u!4 &1825441722 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c3fd099101560b24ba0c81ad0276d21b, type: 3}
+  m_PrefabInstance: {fileID: 1825441721}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1889062708
 GameObject:
   m_ObjectHideFlags: 0
