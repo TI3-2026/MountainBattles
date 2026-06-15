@@ -40,15 +40,15 @@ public class ManagerLevel : MonoBehaviour
     public TextMeshProUGUI finaljogo;
 
     [Header("Info das montanhas")]
-    public string[] InfoMontanhas = 
+    private string[] InfoMontanhas = 
     {
-    "VINSON – É a montanha mais fria entre os Sete Cumes.",
-    "DENALI – O Denali é geologicamente descrito como um enorme bloco de granito.",
-    "ACONCÁGUA – O Aconcágua faz parte da Cordilheira dos Andes.",
-    "EVEREST – O Everest cresce cerca de 4 milímetros por ano.",
-    "ELBRUS – O Elbrus é um vulcão adormecido.",
-    "KILIMANJARO – Por conta de sua neve, “Kilimanjaro” significa “Montanha Branca”.",
-    "PIRÂMIDE DE CARSTENSZ – Sua escalada exige técnicas de rapel e escalada em rocha."
+    "VINSON\nÉ a montanha mais fria entre os Sete Cumes.",
+    "DENALI\nO Denali é geologicamente descrito como um enorme bloco de granito.",
+    "ACONCÁGUA\nO Aconcágua faz parte da Cordilheira dos Andes.",
+    "EVEREST\nEverest cresce cerca de 4 milímetros por ano.",
+    "ELBRUS\nO Elbrus é um vulcão adormecido.",
+    "KILIMANJARO\nPor conta de sua neve, “Kilimanjaro” significa “Montanha Branca”.",
+    "PIRÂMIDE DE CARSTENSZ\nSua escalada exige técnicas de rapel e escalada em rocha."
     };
     public Sprite[] Montanhas = new Sprite[7];
 

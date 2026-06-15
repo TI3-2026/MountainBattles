@@ -414,6 +414,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b340ab671d1daaf42b1ae898b490d525, type: 3}
   m_PrefabInstance: {fileID: 277085215}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &244554285 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+  m_PrefabInstance: {fileID: 1761508825}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &259234283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1089,6 +1094,7 @@ Transform:
   - {fileID: 130378053}
   - {fileID: 1712223621}
   - {fileID: 434005498}
+  - {fileID: 244554285}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &598732451
@@ -1464,7 +1470,7 @@ MonoBehaviour:
   onCardsEnabled:
     m_PersistentCalls:
       m_Calls: []
-  espacamentoHorizontal: 2.25
+  espacamentoHorizontal: 2.5
   espacamentoVertical: 4.4
   linhas: 2
   colunas: 7
@@ -1476,17 +1482,6 @@ MonoBehaviour:
   alpinista: {fileID: 598732446}
   canvas: {fileID: 1204164101}
   finaljogo: {fileID: 962661663}
-  InfoMontanhas:
-  - "VINSON \u2013 \xC9 a montanha mais fria entre os Sete Cumes."
-  - "DENALI \u2013 O Denali \xE9 geologicamente descrito como um enorme bloco de
-    granito."
-  - "ACONC\xC1GUA \u2013 O Aconc\xE1gua faz parte da Cordilheira dos Andes."
-  - "EVEREST \u2013 O Everest cresce cerca de 4 mil\xEDmetros por ano."
-  - "ELBRUS \u2013 O Elbrus \xE9 um vulc\xE3o adormecido."
-  - "KILIMANJARO \u2013 Por conta de sua neve, \u201CKilimanjaro\u201D significa
-    \u201CMontanha Branca\u201D."
-  - "PIR\xC2MIDE DE CARSTENSZ \u2013 Sua escalada exige t\xE9cnicas de rapel e escalada
-    em rocha."
   Montanhas:
   - {fileID: 21300000, guid: a36517aef2aa8704b90ef69a30f6b75d, type: 3}
   - {fileID: 21300000, guid: 23d0a163b07998943bbb4f4fa87bec10, type: 3}
@@ -2583,6 +2578,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 598732450}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1001 &1761508825
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 598732450}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
+      propertyPath: m_Name
+      value: Corda
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6b4af5e6db7a851489a582a4529e1d06, type: 3}
 --- !u!1 &1764876582
 GameObject:
   m_ObjectHideFlags: 0
