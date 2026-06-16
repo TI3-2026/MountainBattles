@@ -50,7 +50,18 @@ public class Manager_Battle : MonoBehaviour
     }
 
     private void CalculatePlayerStrength() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        bool triedSkillCheck = Input.GetKeyDown(KeyCode.Space);
+
+        if (!triedSkillCheck && Input.touchCount > 0) {
+            foreach (Touch touch in Input.touches) {
+                if (touch.phase == TouchPhase.Began) {
+                    triedSkillCheck = true;
+                    break;
+                }
+            }
+        }
+
+        if (triedSkillCheck) {
             if (hud.CheckSkillCheck())
             {
                 // Acertou Skill Check
