@@ -2352,7 +2352,7 @@ MonoBehaviour:
   Tempo: 0
   forcaPlayerGanho: 5.5
   forcaPlayerPerda: 2
-  forcaPlayerMax: 7
+  forcaPlayerMax: 10
   forcaPlayerMin: 0.5
   forcaPlayer: 0
   forcaInimigoMinima: 2

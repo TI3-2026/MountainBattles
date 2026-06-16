@@ -12,6 +12,8 @@ public class ManagerBattle : MonoBehaviour
         else Instance = this;
     }
 
+    public UnityEvent onBatalhaTerminou = new UnityEvent();
+
     [Header("References")]
     public HUDBatalha hud;
     public GolemComportamento inimigo;
@@ -20,7 +22,8 @@ public class ManagerBattle : MonoBehaviour
     [Header("Level Control")]
     public float positionToWin = 6f;
     public float finalMovement = 0f;
-    public float Tempo = 0f;
+    private float Tempo = 0f;
+    private bool batalhaTerminou = false;
 
     [Header("Configurações Player")]
     public float forcaPlayerGanho = 0f;
@@ -37,6 +40,8 @@ public class ManagerBattle : MonoBehaviour
     private void Start() {
         forcaInimigo = (forcaInimigoMinima + forcaInimigoMaxima) / 2;
         forcaPlayer = (forcaPlayerMin + forcaPlayerMax) / 2;
+
+        onBatalhaTerminou.AddListener(BatalhaTerminou);
     }
 
     private void Update() {
@@ -45,7 +50,7 @@ public class ManagerBattle : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        ApplyStrengths();
+        AplicarForcas();
 
         Tempo += Time.deltaTime;
         if(Tempo >= 0.05f)
@@ -102,10 +107,23 @@ public class ManagerBattle : MonoBehaviour
         if (forcaInimigo < forcaInimigoMinima) forcaInimigo = forcaInimigoMinima;
     }
 
-    private void ApplyStrengths() {
+    private void AplicarForcas() {
         finalMovement = forcaPlayer - forcaInimigo;
 
-        player.Velocity(finalMovement);
-        inimigo.Velocity(finalMovement);
+        if (!batalhaTerminou)
+        {
+            player.Velocity(finalMovement);
+            inimigo.Velocity(finalMovement);
+        }
+        else
+        {
+            player.Velocity(0f);
+            inimigo.Velocity(0f);
+        }
+    }
+
+    private void BatalhaTerminou()
+    {
+        batalhaTerminou = true;
     }
 }
