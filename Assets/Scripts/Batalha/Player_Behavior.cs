@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class Player_Behavior : MonoBehaviour
+public class GolemComportamento : MonoBehaviour
 {    
     private Rigidbody rb;
-    private Manager_Battle manager_battle;
+    private ManagerBattle manager_battle;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
-        manager_battle = Manager_Battle.Instance;
+        manager_battle = ManagerBattle.Instance;
     }
 
     public void Velocity(float velocity) {
