@@ -8,29 +8,7 @@ public class CenaControlador : MonoBehaviour
 
     void Update()
     {
-        DetectTouch();
         DetectKeyboard();
-    }
-
-    void DetectTouch()
-    {
-        if (Input.touchCount != 1)
-        {
-            return;
-        }
-
-        Touch touch = Input.GetTouch(0);
-        if (touch.phase != TouchPhase.Began)
-        {
-            return;
-        }
-
-        if (Time.time - lastTapTime <= DoubleTapThreshold)
-        {
-            ChangeScene("Menu");
-        }
-
-        lastTapTime = Time.time;
     }
 
     void DetectKeyboard()
@@ -41,7 +19,7 @@ public class CenaControlador : MonoBehaviour
         }
     }
 
-    void ChangeScene(string scene)
+    public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
     }

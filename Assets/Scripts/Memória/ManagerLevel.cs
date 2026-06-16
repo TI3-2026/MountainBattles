@@ -68,7 +68,7 @@ public class ManagerLevel : MonoBehaviour
 
     private void Start()
     {
-        canvas.SetActive(false);
+        finaljogo.text = "";
         GerarNivel();
     }
 
