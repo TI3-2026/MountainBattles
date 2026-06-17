@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+[DefaultExecutionOrder(-1)]
 public class ManagerLevel : MonoBehaviour
 {
     //Singleton
@@ -16,6 +17,10 @@ public class ManagerLevel : MonoBehaviour
     }
 
 
+    [Header("Eventos")]
+    public UnityEvent<bool> onCardsEnabled;
+
+
     [Header("Geração")]
     public float espacamentoHorizontal = 2.25f;
     public float espacamentoVertical = 4.4f;
@@ -24,113 +29,94 @@ public class ManagerLevel : MonoBehaviour
 
     [Header("Configurações de Jogo")]
     public float tempoMostraInicial = 5f;
+    public float tempoMostraAcerto = 2f;
+    public float tempoMostraErro = 4f;
+    public int DeuMatch = 0;
 
     [Header("Referencias")]
     public GameObject prefab_carta;
-    public Transform carta_pivot;
     public Alpinista alpinista;
     public GameObject canvas;
     public TextMeshProUGUI finaljogo;
 
-    [Header("Auto Preenchível")]
-    public List<CartoesScript> cartoes_list;
-    public CameraScript camScript;
-    
-    [Header("Prefab")]
-    
-
-
-    // Cartas
-    private Vector3 cartaPivotPosicaoOriginal;
-    private Vector3 cartaPivotPosicaoSumir;
-    private float cartaPivotTempoSumir = 0.75f;
-
-    private int duos_blocks;
-    private int[] block_values;
-    public string[] InfoMontanhas = 
+    [Header("Info das montanhas")]
+    private string[] InfoMontanhas = 
     {
-    "VINSON – É a montanha mais fria entre os Sete Cumes.",
-    "DENALI – O Denali é geologicamente descrito como um enorme bloco de granito.",
-    "ACONCÁGUA – O Aconcágua faz parte da Cordilheira dos Andes.",
-    "EVEREST – O Everest cresce cerca de 4 milímetros por ano.",
-    "ELBRUS – O Elbrus é um vulcão adormecido.",
-    "KILIMANJARO – Por conta de sua neve, “Kilimanjaro” significa “Montanha Branca”.",
-    "PIRÂMIDE DE CARSTENSZ – Sua escalada exige técnicas de rapel e escalada em rocha."
+    "VINSON\nÉ a montanha mais fria entre os Sete Cumes.",
+    "DENALI\nO Denali é geologicamente descrito como um enorme bloco de granito.",
+    "ACONCÁGUA\nO Aconcágua faz parte da Cordilheira dos Andes.",
+    "EVEREST\nEverest cresce cerca de 4 milímetros por ano.",
+    "ELBRUS\nO Elbrus é um vulcão adormecido.",
+    "KILIMANJARO\nPor conta de sua neve, “Kilimanjaro” significa “Montanha Branca”.",
+    "PIRÂMIDE DE CARSTENSZ\nSua escalada exige técnicas de rapel e escalada em rocha."
     };
     public Sprite[] Montanhas = new Sprite[7];
 
-    // Level Control Variables
-    public UnityEvent<bool> onCardsEnabled;
-
-    public int primeiraCartaValor = -1;
+    [Header("Outras variáveis/referências. Não modificar.")]
+    public List<CartoesScript> cartoesList;
+    public CartoesAncoraScript cartoesAncora;
+    public CartoesPivotScript cartoesPivot;
     private CartoesScript primeiraCarta;
-    public int segundaCartaValor = -1;
     private CartoesScript segundaCarta;
+    private int duplas;
+    private int[] duplasValores;
+    public int primeiraCartaValor = -1;
+    public int segundaCartaValor = -1;
     public int Erro = 0;
-    public int DeuMatch = 0;
-
+    
     // ==================== Functions ====================
 
     private void Start()
     {
-        cartaPivotPosicaoOriginal = carta_pivot.localPosition;
-        cartaPivotPosicaoSumir = cartaPivotPosicaoOriginal + new Vector3(0, -10, 0);
-
-        carta_pivot.localPosition = cartaPivotPosicaoSumir;
-
-        canvas.SetActive(false);
+        finaljogo.text = "";
         GerarNivel();
     }
 
     private void GerarNivel()
     {
-        duos_blocks = colunas * linhas / 2;
-        block_values = new int[colunas * linhas];
+        duplas = colunas * linhas / 2;
+        duplasValores = new int[colunas * linhas];
         
         // Generate block values
-        for (int i = 0; i < block_values.Length/2; i++){
-            block_values[i*2] = i;
-            block_values[i*2 + 1] = i;
+        for (int i = 0; i < duplasValores.Length/2; i++){
+            duplasValores[i*2] = i;
+            duplasValores[i*2 + 1] = i;
         }
         // Shuffle block values
-        for (int i = 0; i < block_values.Length; i++){
-            int random_index = Random.Range(0, block_values.Length);
-            int temp = block_values[i];
-            block_values[i] = block_values[random_index];
-            block_values[random_index] = temp;
+        for (int i = 0; i < duplasValores.Length; i++){
+            int random_index = Random.Range(0, duplasValores.Length);
+            (duplasValores[random_index], duplasValores[i]) = (duplasValores[i], duplasValores[random_index]);
         }
-        
+
         // Create blocks
-        int block_index = 0;
+        int duplaIndex = 0;
         for (int i = 0; i < colunas; i++)
         {
             for (int j = 0; j < linhas; j++)
             {
-                Vector3 posicaoCarta = new Vector3(i * espacamentoHorizontal, 0, j * espacamentoVertical);
+                Vector3 posicaoCarta = new Vector3(i * espacamentoHorizontal, j * espacamentoVertical, 0);
 
-                GameObject carta = Instantiate(prefab_carta, carta_pivot);
-                carta.name = $"Carta_{block_index}";
-                CartoesScript cartaScript = carta.GetComponent<CartoesScript>();
-
+                GameObject carta = Instantiate(prefab_carta, cartoesAncora.transform);
+                carta.name = $"Carta_{duplaIndex}";
                 carta.transform.localPosition = posicaoCarta;
-                int value = block_values[block_index];
-                cartaScript.block_value = value;
-                cartaScript.SetCard(Montanhas[value], InfoMontanhas[value]);
-                block_index++;
-                cartoes_list.Add(cartaScript);
+
+                CartoesScript cartaScript = carta.GetComponent<CartoesScript>();
+                int value = duplasValores[duplaIndex];
+                cartaScript.duplaValor = value;
+                cartaScript.DefinirCarta(Montanhas[value], InfoMontanhas[value]);
+                duplaIndex++;
+                cartoesList.Add(cartaScript);
             }
         }
         StartCoroutine(I_MostraInicial());
     }
-
     private IEnumerator I_MostraInicial()
     {
         onCardsEnabled.Invoke(false);
-        LeanTween.moveLocal(carta_pivot.gameObject, cartaPivotPosicaoOriginal, cartaPivotTempoSumir)
-        .setEase(LeanTweenType.easeInOutQuad);
+        cartoesPivot.AparecerCartas();
 
         yield return new WaitForSeconds(tempoMostraInicial);
-        foreach (var cartao in cartoes_list)
+        foreach (var cartao in cartoesList)
         {
             cartao.Flip(false);
         }
@@ -158,7 +144,7 @@ public class ManagerLevel : MonoBehaviour
             CheckMatch();
         }
     }
-
+   
     private void CheckMatch()
     {
         //Match
@@ -166,11 +152,7 @@ public class ManagerLevel : MonoBehaviour
         {
             DeuMatch++;
             Erro = 0;
-            StartCoroutine(I_CartoesAnimacao(match: true));
-            if(DeuMatch == 7)
-            {
-                StartCoroutine(AcabarJogo());
-            }
+            StartCoroutine(I_CartoesAnimacao(match: true, acabarJogo: DeuMatch == 7));
         }
         else //UnMatch
         {
@@ -180,35 +162,36 @@ public class ManagerLevel : MonoBehaviour
             StartCoroutine(I_CartoesAnimacao(match: false));
         }
     }
-
-    // Animacao das cartas quando ocorre um match ou erro
-    private IEnumerator I_CartoesAnimacao(bool match)
+    private IEnumerator I_CartoesAnimacao(bool match, bool acabarJogo = false)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         if (match) {
-            Vector3 pivot_position = carta_pivot.localPosition;
+            primeiraCarta.DefinirMaterialMatch();
+            segundaCarta.DefinirMaterialMatch();
+            yield return new WaitForSeconds(tempoMostraAcerto);
 
-            yield return new WaitForSeconds(0.5f);
-
-            carta_pivot.localPosition = new Vector3(100, 100, 100); // Sumir com o objeto da tela
-            yield return new WaitForSeconds(0.25f);
-            camScript.MostrarPlayer();
-            yield return new WaitForSeconds(camScript.animacao_duracao+0.25f);
+            cartoesPivot.DesaparecerCartas();
+            yield return new WaitForSeconds(cartoesPivot.tempoTransicao);
 
             alpinista.AcertouCarta();
-            yield return new WaitForSeconds(alpinista.movimento_duracao+0.25f);
+            yield return new WaitForSeconds(alpinista.movimento_duracao);
 
-            camScript.MostrarMontanha();
-            yield return new WaitForSeconds(camScript.animacao_duracao);
-            carta_pivot.localPosition = pivot_position;
+            if (acabarJogo)
+            {
+                AcabarJogo();
+                yield return new WaitForSeconds(4f);
+                SceneManager.LoadScene("Menu");
+            }
 
+
+            cartoesPivot.AparecerCartas();
             primeiraCarta.DesabilitarCarta();
             segundaCarta.DesabilitarCarta();
         }else
         {
-            primeiraCarta.ErrouMatch();
-            segundaCarta.ErrouMatch();
+            primeiraCarta.ErrouMatch(tempoMostraErro);
+            segundaCarta.ErrouMatch(tempoMostraErro);
         }
 
         yield return new WaitForSeconds(1.2f);
@@ -218,23 +201,18 @@ public class ManagerLevel : MonoBehaviour
         segundaCartaValor = -1;
     }
 
-    private IEnumerator AcabarJogo()
+    private void AcabarJogo()
     {
-        yield return new WaitForSeconds(1f);
         canvas.SetActive(true);
         if (DeuMatch == 7)
         {
             finaljogo.SetText("Vitória!");
             finaljogo.color = Color.green;
-            yield return new WaitForSeconds(4f);
-            SceneManager.LoadScene("Menu");
         }
         else
         {
             finaljogo.SetText("Derrota!");
             finaljogo.color = Color.red;
-            yield return new WaitForSeconds(4f);
-            SceneManager.LoadScene("Menu");
         }
     }
 }

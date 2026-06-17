@@ -18,10 +18,11 @@ public class WinDetect : MonoBehaviour
 
     private IEnumerator LoseOrWin(bool IsWin)
     {
+        ManagerBattle.Instance.onBatalhaTerminou.Invoke();
         yield return new WaitForSeconds(1f);
         if (IsWin)
         {
-            WinOrLose.SetText("Vitória!");
+            WinOrLose.SetText("Vitï¿½ria!");
             WinOrLose.color = Color.green;
         }
         else

@@ -2,57 +2,71 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUD_Behavior : MonoBehaviour
+public class HUDBatalha : MonoBehaviour
 {
-    public Slider slider;
+    public Slider relacaoForcas;
 
     [Header("Skill Check")]
     public Slider skillCheck;
-    public float skillCheckSpeed = 1f;
-    public float skillCheckMax = 0.65f;
-    public float skillCheckMin = 0.35f;
+    public Image skillCheckErro;
+    public Image skillCheckSucesso;
+    public float skillCheckVelocidade = 1f;
+    private float skillCheckMax = 0.65f;
+    private float skillCheckMin = 0.35f;
 
-    private bool skillCheckDirection = true; // true -> right, false -> left
+    private bool skillCheckDirecao = true; // true -> right, false -> left
 
     private void Start() {
-        Manager_Battle.Instance.hud = this;
-
-        skillCheckDirection = true;
+        ManagerBattle.Instance.hud = this;
+        
+        skillCheckDirecao = true;
         skillCheck.value = 0f;
+        AtualizarAreaAcerto();
     }
 
     private void Update()
     {
-        SkillCheckBehavior();
+        ComportamentoSkillCheck();
     }
 
-    public void UpdateSlider(float value) {
-        slider.value = value;
+    public void AtualizarRelacaoForcas(float forcaPlayer, float forcaInimigo) {
+        relacaoForcas.maxValue = forcaPlayer + forcaInimigo;
+        relacaoForcas.value = forcaPlayer;
     }
 
-    public bool CheckSkillCheck()
+    private void AtualizarAreaAcerto()
+    {
+        float tamErro = skillCheckErro.rectTransform.rect.width;
+        float tamSucesso = skillCheckSucesso.rectTransform.rect.width;
+
+        float proporcao = (tamSucesso /  tamErro);
+        skillCheckMin = 0.5f - (proporcao / 2);
+        skillCheckMax = 0.5f + (proporcao / 2);
+    }
+
+    public bool VerificarSkillCheck()
     {
         if (skillCheck.value <= skillCheckMax && skillCheck.value >= skillCheckMin) return true;
         return false;
     }
 
-    private void SkillCheckBehavior()
+    private void ComportamentoSkillCheck()
     {
-        if (skillCheckDirection)
+        if (skillCheckDirecao)
         {
-            skillCheck.value += skillCheckSpeed * Time.deltaTime;
+            skillCheck.value += skillCheckVelocidade * Time.deltaTime;
             if (skillCheck.value >= 1f)
             {
-                skillCheckDirection = false;
+                skillCheckDirecao = false;
                 skillCheck.value = 1f;
             }
         }
         else
         {
-            skillCheck.value -= skillCheckSpeed * Time.deltaTime;
+            skillCheck.value -= skillCheckVelocidade * Time.deltaTime;
             if (skillCheck.value <= 0f)
             {
-                skillCheckDirection = true;
+                skillCheckDirecao = true;
                 skillCheck.value = 0f;
             }
         }

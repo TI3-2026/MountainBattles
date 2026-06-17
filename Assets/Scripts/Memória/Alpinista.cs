@@ -9,9 +9,11 @@ public class Alpinista : MonoBehaviour
     public float movimento_duracao = 1f;
     private int total_movimentos;
 
+    [Header("Variaveis de controle. Não modificar.")]
     public Vector3 alpinistavtr;
     public Vector3 movimento = new Vector3(0, 12, 0);
     public Vector3 inicio = new Vector3(-4, -24, 100);
+    private Animator animator;
     
     private void Start()
     {
@@ -19,12 +21,22 @@ public class Alpinista : MonoBehaviour
 
         transform.position = pos_movimentos[0].transform.position;
         total_movimentos = pos_movimentos.Length-1;
+
+        animator = GetComponent<Animator>();
     }
 
     public void AcertouCarta()
     {
         movimentos++;
         LeanTween.move(gameObject, pos_movimentos[movimentos].transform.position, movimento_duracao).setEase(LeanTweenType.easeInOutSine);
+        StartCoroutine(I_Escalando());
+    }
+
+    private IEnumerator I_Escalando()
+    {
+        animator.SetFloat("Escalando", 1f);
+        yield return new WaitForSeconds(movimento_duracao);
+        animator.SetFloat("Escalando", 0f);
     }
 
     // ! Refazer

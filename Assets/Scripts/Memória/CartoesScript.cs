@@ -10,25 +10,25 @@ public class CartoesScript : MonoBehaviour
     public float tempoFlip = 0.15f;
 
     [Header("Referencias")]
+    public GameObject cartaObj;
+    public Material materialMatch;
+    // UI
     public Canvas canvas;
     public TextMeshProUGUI infoMontanha;
     public Image ImgMontanha;
 
 
-    [Header("Auto Preenchivel")]
-    public int block_value;
-
-    
-
+    [Header("Variáveis de controle. Não modificar.")]
+    public int duplaValor;
     private bool desabilitado = false;
     private bool clicavel = true;
-    private Quaternion originalRotation;
+    
 
     private void Start()
     {
-        originalRotation = transform.rotation;
+        transform.Rotate(0, 180, 0);
         canvas.worldCamera = Camera.main;
-        //number.enabled = false;
+
         infoMontanha.enabled = true;
         ImgMontanha.enabled = true;
         clicavel = false; 
@@ -36,17 +36,20 @@ public class CartoesScript : MonoBehaviour
         ManagerLevel.Instance.onCardsEnabled.AddListener(Clicavel);
     }
 
-    public void SetCard(Sprite sprite, string texto)
+
+    public void DefinirCarta(Sprite sprite, string texto)
     {
         ImgMontanha.sprite = sprite;
         infoMontanha.text = texto;
     }
 
-    private void Clicavel(bool clicavel)
+    public void Clicavel(bool clicavel)
     {
         this.clicavel = clicavel;
     }
 
+    // Match
+    public void DefinirMaterialMatch() => cartaObj.GetComponent<Renderer>().material = materialMatch;
     public void DesabilitarCarta() => desabilitado = true;
 
     public void ClicarCarta()
@@ -58,15 +61,15 @@ public class CartoesScript : MonoBehaviour
             Flip(true);
             clicavel = false;
 
-            ManagerLevel.Instance.CartaClicada(block_value, this);
+            ManagerLevel.Instance.CartaClicada(duplaValor, this);
         }
     }
 
-    public void ErrouMatch() => StartCoroutine(I_ErroMatch());
-    private IEnumerator I_ErroMatch()
+    public void ErrouMatch(float tempo) => StartCoroutine(I_ErroMatch(tempo));
+    private IEnumerator I_ErroMatch(float tempo)
     {
         clicavel = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(tempo);
         Flip(false);
         clicavel = true;
     }
@@ -75,8 +78,8 @@ public class CartoesScript : MonoBehaviour
     {
         LeanTween.cancel(gameObject);
 
-        if (showFront) LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 0), tempoFlip).setEaseOutQuad();
-        else LeanTween.rotateLocal(gameObject, new Vector3(0, 0, -180), tempoFlip).setEaseOutQuad();
+        if (showFront) LeanTween.rotateLocal(gameObject, new Vector3(0, 180, 0), tempoFlip).setEaseOutQuad();
+        else LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 0), tempoFlip).setEaseOutQuad();
     }
 
     
