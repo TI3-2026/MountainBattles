@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 2e55fc98842cc99469d327b2de50446b, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 4468cf691a0d9e74183ca9beb3c7c990, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -2344,12 +2344,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b6aaa91268b9bb4797c57b80c1c38f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Manager_Battle
+  onBatalhaTerminou:
+    m_PersistentCalls:
+      m_Calls: []
   hud: {fileID: 91280743}
   inimigo: {fileID: 27358665}
   player: {fileID: 92934412}
   positionToWin: 24
   finalMovement: 0
-  Tempo: 0
   forcaPlayerGanho: 5.5
   forcaPlayerPerda: 2
   forcaPlayerMax: 10
