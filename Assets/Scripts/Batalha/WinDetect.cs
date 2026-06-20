@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -12,7 +13,9 @@ public class WinDetect : MonoBehaviour
     {
         WinOrLose.SetText("");
     }
-    private void OnCollisionEnter(Collision collision) {
+
+    private void OnTriggerEnter(Collider other)
+    {
         StartCoroutine(LoseOrWin(isWin));
     }
 
@@ -22,7 +25,7 @@ public class WinDetect : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (IsWin)
         {
-            WinOrLose.SetText("Vit�ria!");
+            WinOrLose.SetText("Vitória!");
             WinOrLose.color = Color.green;
         }
         else
