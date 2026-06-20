@@ -45,7 +45,9 @@ public class ManagerBattle : MonoBehaviour
     }
 
     private void Update() {
-        CalcularForcaPlayer();
+        if (Input.GetKeyDown(KeyCode.Space)) TentarSkillCheck();
+        
+        PerdaDeForcaPlayer();
         CalcularForcaInimigo();
     }
 
@@ -59,45 +61,31 @@ public class ManagerBattle : MonoBehaviour
             Tempo = 0f;
         }
     }
-
-    private void CalcularForcaPlayer() {
-        (bool skillCheck, bool acertou) = DetectarSkillCheck();
-
-        if (skillCheck)
+    
+    // ====================== Operações de forças ================
+    private void CalcularForcaPlayer(bool acertou) {
+        if (acertou)
         {
-            if (acertou)
-            {
-                // Acertou Skill Check
-                forcaPlayer += forcaPlayerGanho;
-                if (forcaPlayer > forcaPlayerMax) forcaPlayer = forcaPlayerMax;
-            }
-            else
-            {
-                // Penalidade (Errar SkillCheck)
-                forcaPlayer -= forcaPlayerGanho / 2;
-            }
+            // Acertou Skill Check
+            forcaPlayer += forcaPlayerGanho;
+            if (forcaPlayer > forcaPlayerMax) forcaPlayer = forcaPlayerMax;
         }
-
+        else
+        {
+            // Penalidade (Errar SkillCheck)
+            forcaPlayer -= forcaPlayerGanho / 2;
+        }
+    }
+    
+    private void PerdaDeForcaPlayer()
+    {
         forcaPlayer -= forcaPlayerPerda * Time.deltaTime;
         if (forcaPlayer < forcaPlayerMin) forcaPlayer = forcaPlayerMin;
     }
-
-    private (bool, bool) DetectarSkillCheck()
+    
+    public void TentarSkillCheck()
     {
-        bool tentouSkillCheck = Input.GetKeyDown(KeyCode.Space);
-
-        // Detectar Touch
-        if (!tentouSkillCheck && Input.touchCount > 0) {
-            foreach (Touch touch in Input.touches) {
-                if (touch.phase == TouchPhase.Began) {
-                    tentouSkillCheck = true;
-                    break;
-                }
-            }
-        }
-
-        if (tentouSkillCheck) return (tentouSkillCheck, hud.VerificarSkillCheck());
-        return (tentouSkillCheck, false);
+        CalcularForcaPlayer(hud.VerificarSkillCheck());
     }
 
     private void CalcularForcaInimigo() {
@@ -122,6 +110,8 @@ public class ManagerBattle : MonoBehaviour
         }
     }
 
+    // ====================== Controle de batalha ================
+    
     private void BatalhaTerminou()
     {
         batalhaTerminou = true;
