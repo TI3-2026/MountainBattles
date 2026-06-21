@@ -8,11 +8,6 @@ public class CenaControlador : MonoBehaviour
 
     void Update()
     {
-        DetectKeyboard();
-    }
-
-    void DetectKeyboard()
-    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ChangeScene("Menu");
@@ -21,6 +16,14 @@ public class CenaControlador : MonoBehaviour
 
     public void ChangeScene(string scene)
     {
+        if (ManagerLevel.Instance != null)
+        {
+            ManagerLevel.Instance.EnviarDados();
+        }else if (ManagerBattle.Instance != null)
+        {
+            ManagerBattle.Instance.EnviarDados();
+        }
+        
         SceneManager.LoadScene(scene);
     }
 }

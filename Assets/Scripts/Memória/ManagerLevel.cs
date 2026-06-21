@@ -15,11 +15,9 @@ public class ManagerLevel : MonoBehaviour
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
     }
-
-
+    
     [Header("Eventos")]
     public UnityEvent<bool> onCardsEnabled;
-
 
     [Header("Geração")]
     public float espacamentoHorizontal = 2.25f;
@@ -32,6 +30,7 @@ public class ManagerLevel : MonoBehaviour
     public float tempoMostraAcerto = 2f;
     public float tempoMostraErro = 4f;
     public int DeuMatch = 0;
+    public float cartasAcertadas = 0;
 
     [Header("Referencias")]
     public GameObject prefab_carta;
@@ -150,6 +149,7 @@ public class ManagerLevel : MonoBehaviour
         //Match
         if (primeiraCartaValor == segundaCartaValor)
         {
+            cartasAcertadas++;
             DeuMatch++;
             Erro = 0;
             StartCoroutine(I_CartoesAnimacao(match: true, acabarJogo: DeuMatch == 7));
@@ -203,6 +203,7 @@ public class ManagerLevel : MonoBehaviour
 
     private void AcabarJogo()
     {
+        EnviarDados();
         canvas.SetActive(true);
         if (DeuMatch == 7)
         {
@@ -214,5 +215,10 @@ public class ManagerLevel : MonoBehaviour
             finaljogo.SetText("Derrota!");
             finaljogo.color = Color.red;
         }
+    }
+
+    public void EnviarDados()
+    {
+        GoogleFormsAnalytics.Instance.SendForm(resCartasAcertadas: cartasAcertadas);
     }
 }

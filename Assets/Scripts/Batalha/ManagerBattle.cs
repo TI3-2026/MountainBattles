@@ -19,11 +19,13 @@ public class ManagerBattle : MonoBehaviour
     public GolemComportamento inimigo;
     public GolemComportamento player;
 
-    [Header("Level Control")]
+    [Header("Controle de Jogo")]
     public float positionToWin = 6f;
     public float finalMovement = 0f;
     private float Tempo = 0f;
     private bool batalhaTerminou = false;
+    public float skillChecksAcertadas = 0;
+    public float skillChecksErradas = 0;
 
     [Header("Configurações Player")]
     public float forcaPlayerGanho = 0f;
@@ -69,12 +71,14 @@ public class ManagerBattle : MonoBehaviour
         if (acertou)
         {
             // Acertou Skill Check
+            skillChecksAcertadas++;
             forcaPlayer += forcaPlayerGanho;
             if (forcaPlayer > forcaPlayerMax) forcaPlayer = forcaPlayerMax;
         }
         else
         {
             // Penalidade (Errar SkillCheck)
+            skillChecksErradas++;
             forcaPlayer -= forcaPlayerGanho / 2;
         }
     }
@@ -116,6 +120,13 @@ public class ManagerBattle : MonoBehaviour
     
     private void BatalhaTerminou()
     {
+        EnviarDados();
         batalhaTerminou = true;
     }
+
+    public void EnviarDados()
+    {
+        GoogleFormsAnalytics.Instance.SendForm(resSkillChecksAcertadas: skillChecksAcertadas, resSkillChecksErradas: skillChecksErradas);
+    }
+    
 }
