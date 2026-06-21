@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using Random = System.Random;
 
 public class HUDBatalha : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class HUDBatalha : MonoBehaviour
     public Slider skillCheck;
     public Image skillCheckErro;
     public Image skillCheckSucesso;
+    public TextMeshProUGUI feedbackText;
     public float skillCheckVelocidade = 1f;
     private float skillCheckMax = 0.65f;
     private float skillCheckMin = 0.35f;
@@ -18,6 +21,8 @@ public class HUDBatalha : MonoBehaviour
 
     private void Start() {
         ManagerBattle.Instance.hud = this;
+        
+        feedbackText.gameObject.SetActive(false);
         
         skillCheckDirecao = true;
         skillCheck.value = 0f;
@@ -70,6 +75,37 @@ public class HUDBatalha : MonoBehaviour
                 skillCheck.value = 0f;
             }
         }
+    }
+
+    public void AtualizarFeedback(bool acertou)
+    {
+        float animationTime = 1f;
+        
+        LeanTween.cancel(feedbackText.gameObject);
+        feedbackText.rectTransform.localScale = new Vector3(0, 0, 0);
+        feedbackText.gameObject.SetActive(true);
+        
+        if (acertou)
+        {
+            feedbackText.text = "Acertou!!!";
+            feedbackText.color = Color.green;
+        }
+        else
+        {
+            feedbackText.text = "Foi quase...";
+            feedbackText.color = Color.red;
+        }
+
+        float rotationAngle = UnityEngine.Random.Range(-25f, 25f);
+        LeanTween.rotate(feedbackText.gameObject, new Vector3(0, 0, rotationAngle), animationTime)
+            .setEase(LeanTweenType.easeOutQuad);
+        LeanTween.scale(feedbackText.gameObject, new Vector3(1f, 1f, 1f), animationTime)
+            .setEase(LeanTweenType.easeOutQuad)
+            .setOnComplete(() =>
+            {
+                feedbackText.gameObject.SetActive(false);
+            });
+        
     }
     
 }

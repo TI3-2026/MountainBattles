@@ -64,6 +64,8 @@ public class ManagerBattle : MonoBehaviour
     
     // ====================== Operações de forças ================
     private void CalcularForcaPlayer(bool acertou) {
+        hud.AtualizarFeedback(acertou);
+        
         if (acertou)
         {
             // Acertou Skill Check
