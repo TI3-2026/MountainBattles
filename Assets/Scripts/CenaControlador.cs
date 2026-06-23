@@ -3,19 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class CenaControlador : MonoBehaviour
 {
-    private const float DoubleTapThreshold = 0.3f;
-    private float lastTapTime = -1f;
-
+    private bool trocandoCena = false;
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ChangeScene("Menu");
+            if (!trocandoCena) ChangeScene("Menu");
         }
     }
 
     public void ChangeScene(string scene)
     {
+        trocandoCena = true;
+        
         if (ManagerLevel.Instance != null)
         {
             ManagerLevel.Instance.EnviarDados();
