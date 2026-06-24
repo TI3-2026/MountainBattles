@@ -6,7 +6,7 @@ public class CartoesPivotScript : MonoBehaviour
     public float tempoTransicao = 0.5f;
 
     private void Awake() {
-        ManagerLevel.Instance.cartoesPivot = this;
+        ManagerMemoria.Instance.cartoesPivot = this;
     }
 
     private void Start() {

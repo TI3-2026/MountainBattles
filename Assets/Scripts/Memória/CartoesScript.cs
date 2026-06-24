@@ -33,7 +33,7 @@ public class CartoesScript : MonoBehaviour
         ImgMontanha.enabled = true;
         clicavel = false; 
 
-        ManagerLevel.Instance.onCardsEnabled.AddListener(Clicavel);
+        ManagerMemoria.Instance.onCardsEnabled.AddListener(Clicavel);
     }
 
 
@@ -61,7 +61,7 @@ public class CartoesScript : MonoBehaviour
             Flip(true);
             clicavel = false;
 
-            ManagerLevel.Instance.CartaClicada(duplaValor, this);
+            ManagerMemoria.Instance.CartaClicada(duplaValor, this);
         }
     }
 

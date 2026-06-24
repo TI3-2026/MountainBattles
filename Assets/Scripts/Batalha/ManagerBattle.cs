@@ -126,7 +126,11 @@ public class ManagerBattle : MonoBehaviour
 
     public void EnviarDados()
     {
-        GoogleFormsAnalytics.Instance.SendForm(resSkillChecksAcertadas: skillChecksAcertadas, resSkillChecksErradas: skillChecksErradas);
+        GoogleFormsAnalytics.Instance.SendForm(
+            resJogouBatalha: true,
+            resSkillChecksAcertadas: skillChecksAcertadas,
+            resSkillChecksErradas: skillChecksErradas
+        );
     }
     
 }

@@ -17,9 +17,9 @@ public class CenaControlador : MonoBehaviour
     {
         trocandoCena = true;
         
-        if (ManagerLevel.Instance != null)
+        if (ManagerMemoria.Instance != null)
         {
-            ManagerLevel.Instance.EnviarDados();
+            ManagerMemoria.Instance.EnviarDados();
         }else if (ManagerBattle.Instance != null)
         {
             ManagerBattle.Instance.EnviarDados();

@@ -6,10 +6,10 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(-1)]
-public class ManagerLevel : MonoBehaviour
+public class ManagerMemoria : MonoBehaviour
 {
     //Singleton
-    public static ManagerLevel Instance { get; private set; }
+    public static ManagerMemoria Instance { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(this);
@@ -30,7 +30,9 @@ public class ManagerLevel : MonoBehaviour
     public float tempoMostraAcerto = 2f;
     public float tempoMostraErro = 4f;
     public int DeuMatch = 0;
+    
     public float cartasAcertadas = 0;
+    public float cartasErradas = 0;
 
     [Header("Referencias")]
     public GameObject prefab_carta;
@@ -156,6 +158,7 @@ public class ManagerLevel : MonoBehaviour
         }
         else //UnMatch
         {
+            cartasErradas++;
             if(alpinista.alpinistavtr.y > alpinista.inicio.y) Erro++;
 
             alpinista.ErrouCarta(ref Erro);
@@ -219,6 +222,10 @@ public class ManagerLevel : MonoBehaviour
 
     public void EnviarDados()
     {
-        GoogleFormsAnalytics.Instance.SendForm(resCartasAcertadas: cartasAcertadas);
+        GoogleFormsAnalytics.Instance.SendForm(
+            resJogouMemoria: true,
+            resCartasAcertadas: cartasAcertadas,
+            resCartasErradas: cartasErradas
+        );
     }
 }
