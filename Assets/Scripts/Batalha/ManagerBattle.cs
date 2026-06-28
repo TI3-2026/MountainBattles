@@ -18,6 +18,8 @@ public class ManagerBattle : MonoBehaviour
     public HUDBatalha hud;
     public GolemComportamento inimigo;
     public GolemComportamento player;
+    public Animator Golem;
+    public Animator MountainMan;
 
     [Header("Controle de Jogo")]
     public float positionToWin = 6f;
@@ -62,6 +64,8 @@ public class ManagerBattle : MonoBehaviour
             hud.AtualizarRelacaoForcas(forcaPlayer, forcaInimigo);
             Tempo = 0f;
         }
+        Golem.SetInteger("Instance", 1);
+        MountainMan.SetInteger("Instance", 1);
     }
     
     // ====================== Operações de forças ================
@@ -74,12 +78,16 @@ public class ManagerBattle : MonoBehaviour
             skillChecksAcertadas++;
             forcaPlayer += forcaPlayerGanho;
             if (forcaPlayer > forcaPlayerMax) forcaPlayer = forcaPlayerMax;
+            Golem.SetInteger("Instance", 2);
+            MountainMan.SetInteger("Instance", 3);
         }
         else
         {
             // Penalidade (Errar SkillCheck)
             skillChecksErradas++;
             forcaPlayer -= forcaPlayerGanho / 2;
+            Golem.SetInteger("Instance", 3);
+            MountainMan.SetInteger("Instance", 2);
         }
     }
     
