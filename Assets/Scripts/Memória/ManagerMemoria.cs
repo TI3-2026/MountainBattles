@@ -188,17 +188,18 @@ public class ManagerMemoria : MonoBehaviour
         if (match) {
             primeiraCarta.DefinirMaterialMatch();
             segundaCarta.DefinirMaterialMatch();
-            yield return new WaitForSeconds(tempoMostraAcerto);
 
-            cartoesPivot.DesaparecerCartas();
-            yield return new WaitForSeconds(cartoesPivot.tempoTransicao);
+            //yield return new WaitForSeconds(tempoMostraAcerto);
+            //cartoesPivot.DesaparecerCartas();
+            //yield return new WaitForSeconds(cartoesPivot.tempoTransicao);
 
+            yield return new WaitForSeconds(0.25f);
             alpinista.AcertouCarta();
-            yield return new WaitForSeconds(alpinista.movimento_duracao);
+            yield return new WaitForSeconds(alpinista.movimento_duracao-0.5f);
  
             if (acabarJogo) StartCoroutine(I_AcabarJogo());
 
-            cartoesPivot.AparecerCartas();
+            //cartoesPivot.AparecerCartas();
             primeiraCarta.DesabilitarCarta();
             segundaCarta.DesabilitarCarta();
         }else
