@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 194762943}
   - component: {fileID: 194762942}
   m_Layer: 5
-  m_Name: Creditos
+  m_Name: I_Creditos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,7 +354,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -0.000030517578}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &194762942
@@ -1558,8 +1558,8 @@ RectTransform:
   - {fileID: 1671327981}
   - {fileID: 1137620874}
   - {fileID: 1538340212}
-  - {fileID: 1514455035}
   - {fileID: 1698052398}
+  - {fileID: 1514455035}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2435,7 +2435,7 @@ GameObject:
   - component: {fileID: 948262541}
   - component: {fileID: 948262540}
   m_Layer: 5
-  m_Name: Background
+  m_Name: I_FundoCreditos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3141,7 +3141,7 @@ GameObject:
   - component: {fileID: 1137620876}
   - component: {fileID: 1137620875}
   m_Layer: 5
-  m_Name: Image
+  m_Name: I_MuseuImaginacao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3163,7 +3163,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 258, y: -468}
+  m_AnchoredPosition: {x: 268, y: -440}
   m_SizeDelta: {x: 100, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1137620875
@@ -3774,7 +3774,7 @@ GameObject:
   - component: {fileID: 1514455037}
   - component: {fileID: 1514455036}
   m_Layer: 5
-  m_Name: Button
+  m_Name: B_Creditos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3906,7 +3906,7 @@ GameObject:
   - component: {fileID: 1538340214}
   - component: {fileID: 1538340213}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: I_PucMinas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3928,7 +3928,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 90.99988, y: -484.70004}
+  m_AnchoredPosition: {x: 100.99988, y: -456.70007}
   m_SizeDelta: {x: 100, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1538340213
@@ -4277,12 +4277,12 @@ GameObject:
   - component: {fileID: 1698052398}
   - component: {fileID: 1698052400}
   m_Layer: 5
-  m_Name: creditos
+  m_Name: CreditosGrupo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1698052398
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4301,7 +4301,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00010586}
+  m_AnchoredPosition: {x: 0, y: 0.00012207031}
   m_SizeDelta: {x: -523.8759, y: -36.925}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1698052400
