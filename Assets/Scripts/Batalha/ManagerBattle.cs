@@ -136,7 +136,7 @@ public class ManagerBattle : MonoBehaviour
     
     private void BatalhaTerminou()
     {
-        //EnviarDados();
+        try {EnviarDados();} catch {}
         batalhaTerminou = true;
     }
 

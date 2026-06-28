@@ -22,6 +22,7 @@ public class WinDetect : MonoBehaviour
 
     private IEnumerator LoseOrWin(bool IsWin)
     {
+        Debug.Log("Batalha terminou");
         ManagerBattle.Instance.onBatalhaTerminou.Invoke();
         yield return new WaitForSeconds(1f);
         if (IsWin)
