@@ -67,7 +67,7 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "MountainBattles.sln",
+    "dotnet.defaultSolution": "BatalhaMontanhas.sln",
     "dotrush.roslyn.projectOrSolutionFiles": [
         "c:\\Users\\Bernardo Horta\\Documents\\Faculdade\\TI III\\MountainBattles\\MountainBattles-main.slnx"
     ]
