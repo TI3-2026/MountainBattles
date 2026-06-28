@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(-1)]
@@ -20,6 +22,9 @@ public class ManagerMemoria : MonoBehaviour
     public UnityEvent<bool> onCardsEnabled;
 
     [Header("Geração")]
+    public List<CartoesScript> cartoesList;
+    public CartoesAncoraScript cartoesAncora;
+    public CartoesPivotScript cartoesPivot;
     public float espacamentoHorizontal = 2.25f;
     public float espacamentoVertical = 4.4f;
     public int linhas = 2;
@@ -30,6 +35,7 @@ public class ManagerMemoria : MonoBehaviour
     public float tempoMostraAcerto = 2f;
     public float tempoMostraErro = 4f;
     public int DeuMatch = 0;
+    public float tempoJogo = 120;
     
     public float cartasAcertadas = 0;
     public float cartasErradas = 0;
@@ -38,9 +44,10 @@ public class ManagerMemoria : MonoBehaviour
     public GameObject prefab_carta;
     public Alpinista alpinista;
     public GameObject canvas;
-    public TextMeshProUGUI finaljogo;
+    public HUDMemoria hud;
 
-    [Header("Info das montanhas")]
+    [Header("Outros")]
+
     private string[] InfoMontanhas = 
     {
     "VINSON\nÉ a montanha mais fria entre os Sete Cumes.",
@@ -54,13 +61,11 @@ public class ManagerMemoria : MonoBehaviour
     public Sprite[] Montanhas = new Sprite[7];
 
     [Header("Outras variáveis/referências. Não modificar.")]
-    public List<CartoesScript> cartoesList;
-    public CartoesAncoraScript cartoesAncora;
-    public CartoesPivotScript cartoesPivot;
     private CartoesScript primeiraCarta;
     private CartoesScript segundaCarta;
     private int duplas;
     private int[] duplasValores;
+    private float tempoRestante = 0;
     public int primeiraCartaValor = -1;
     public int segundaCartaValor = -1;
     public int Erro = 0;
@@ -69,8 +74,19 @@ public class ManagerMemoria : MonoBehaviour
 
     private void Start()
     {
-        finaljogo.text = "";
         GerarNivel();
+        tempoRestante = tempoJogo;
+    }
+
+    private void Update()
+    {
+        tempoRestante -= Time.deltaTime;
+        hud.AtualizarTempoRestante(tempoRestante);
+
+        if (tempoRestante <= 0)
+        {
+            StartCoroutine(I_AcabarJogo());
+        }
     }
 
     private void GerarNivel()
@@ -179,14 +195,8 @@ public class ManagerMemoria : MonoBehaviour
 
             alpinista.AcertouCarta();
             yield return new WaitForSeconds(alpinista.movimento_duracao);
-
-            if (acabarJogo)
-            {
-                AcabarJogo();
-                yield return new WaitForSeconds(4f);
-                SceneManager.LoadScene("Menu");
-            }
-
+ 
+            if (acabarJogo) StartCoroutine(I_AcabarJogo());
 
             cartoesPivot.AparecerCartas();
             primeiraCarta.DesabilitarCarta();
@@ -204,20 +214,19 @@ public class ManagerMemoria : MonoBehaviour
         segundaCartaValor = -1;
     }
 
-    private void AcabarJogo()
+    private IEnumerator I_AcabarJogo()
     {
-        EnviarDados();
-        canvas.SetActive(true);
+        try { EnviarDados(); } catch { }
         if (DeuMatch == 7)
         {
-            finaljogo.SetText("Vitória!");
-            finaljogo.color = Color.green;
+            hud.ExibirTextoFinal("Vitória!", Color.green);
         }
         else
         {
-            finaljogo.SetText("Derrota!");
-            finaljogo.color = Color.red;
+            hud.ExibirTextoFinal("Derrota!", Color.red);
         }
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene("Menu");
     }
 
     public void EnviarDados()
