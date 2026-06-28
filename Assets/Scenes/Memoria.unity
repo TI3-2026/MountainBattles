@@ -2029,7 +2029,7 @@ MonoBehaviour:
   tempoMostraAcerto: 3
   tempoMostraErro: 1
   DeuMatch: 0
-  tempoJogo: 5
+  tempoJogo: 150
   cartasAcertadas: 0
   cartasErradas: 0
   prefab_carta: {fileID: 84112898156602547, guid: 3e5415f495d01fd459d1dad74aae86cf, type: 3}
