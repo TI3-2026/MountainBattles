@@ -45,6 +45,8 @@ public class ManagerBattle : MonoBehaviour
     private void Start() {
         forcaInimigo = (forcaInimigoMinima + forcaInimigoMaxima) / 2;
         forcaPlayer = (forcaPlayerMin + forcaPlayerMax) / 2;
+        Golem.SetInteger("Instance", 1);
+        MountainMan.SetInteger("Instance", 1);
 
         onBatalhaTerminou.AddListener(BatalhaTerminou);
     }
@@ -65,8 +67,6 @@ public class ManagerBattle : MonoBehaviour
             hud.AtualizarRelacaoForcas(forcaPlayer, forcaInimigo);
             Tempo = 0f;
         }
-        Golem.SetInteger("Instance", 1);
-        MountainMan.SetInteger("Instance", 1);
     }
     
     // ====================== Operações de forças ================
@@ -136,7 +136,7 @@ public class ManagerBattle : MonoBehaviour
     
     private void BatalhaTerminou()
     {
-        EnviarDados();
+        //EnviarDados();
         batalhaTerminou = true;
     }
 

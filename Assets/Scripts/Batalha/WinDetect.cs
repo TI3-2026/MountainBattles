@@ -28,13 +28,11 @@ public class WinDetect : MonoBehaviour
         {
             WinOrLose.SetText("Vitória!");
             WinOrLose.color = Color.green;
-            manager.Golem.SetInteger("Instance", 4);
         }
         else
         {
             WinOrLose.SetText("Derrota!");
             WinOrLose.color = Color.red;
-            manager.MountainMan.SetInteger("Instance", 4);
         }
         yield return new WaitForSeconds(4f);
         SceneManager.LoadScene("Menu");
