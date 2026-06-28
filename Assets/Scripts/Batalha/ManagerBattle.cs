@@ -28,6 +28,7 @@ public class ManagerBattle : MonoBehaviour
     private bool batalhaTerminou = false;
     public float skillChecksAcertadas = 0;
     public float skillChecksErradas = 0;
+    private float ultimoSkillCheck = 0f;
 
     [Header("Configurações Player")]
     public float forcaPlayerGanho = 0f;
@@ -99,7 +100,14 @@ public class ManagerBattle : MonoBehaviour
     
     public void TentarSkillCheck()
     {
-        CalcularForcaPlayer(hud.VerificarSkillCheck());
+        bool acertou = hud.VerificarSkillCheck();
+
+
+        if (Time.time - ultimoSkillCheck > 1f) 
+        {
+            CalcularForcaPlayer(acertou);
+            ultimoSkillCheck = Time.time;
+        }
     }
 
     private void CalcularForcaInimigo() {

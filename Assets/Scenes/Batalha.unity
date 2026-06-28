@@ -1159,6 +1159,55 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 827799254}
   m_SourcePrefab: {fileID: 100100000, guid: 1c165174b90ba9140870f1e3ea85dbf6, type: 3}
+--- !u!1 &244319660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 244319662}
+  - component: {fileID: 244319661}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &244319661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244319660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
+--- !u!4 &244319662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244319660}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &253709684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1711,7 +1760,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1875,6 +1924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WinDetect
   isWin: 0
   WinOrLose: {fileID: 2067190532}
+  manager: {fileID: 0}
 --- !u!1 &1084347566
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,8 +2124,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ACERTOU!!!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f745ce573e8ed4408abc98873860839, type: 2}
-  m_sharedMaterial: {fileID: 6373305552661003993, guid: 8f745ce573e8ed4408abc98873860839, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2424,6 +2474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WinDetect
   isWin: 1
   WinOrLose: {fileID: 2067190532}
+  manager: {fileID: 0}
 --- !u!65 &1323034749
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2637,8 +2688,12 @@ MonoBehaviour:
   hud: {fileID: 91280743}
   inimigo: {fileID: 27358665}
   player: {fileID: 92934412}
+  Golem: {fileID: 0}
+  MountainMan: {fileID: 0}
   positionToWin: 24
   finalMovement: 0
+  skillChecksAcertadas: 0
+  skillChecksErradas: 0
   forcaPlayerGanho: 5.5
   forcaPlayerPerda: 2
   forcaPlayerMax: 10
@@ -3033,6 +3088,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 879573710}
+  - {fileID: 244319662}
   - {fileID: 1500175801}
   - {fileID: 91280742}
   - {fileID: 13195263}
