@@ -4203,7 +4203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1671327981
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4819,8 +4819,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Minimijogo em que tem que derrubar o Golen advers\xE1rio. Para ganhar
-    for\xE7a clique na tela quando o indicador estiver na parte verde da barra"
+  m_text: "Minijogo em que tem que derrubar o Golen advers\xE1rio. Para ganhar for\xE7a
+    clique na tela quando o indicador estiver na parte verde da barra"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d2378b6663bc2b4f96315fe8584945d, type: 2}
   m_sharedMaterial: {fileID: -5056694321022804392, guid: 8d2378b6663bc2b4f96315fe8584945d, type: 2}
